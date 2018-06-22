@@ -1,0 +1,801 @@
+##トップウィンドウの場合
+#if (!$isViewObject)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+#parse("/template/base/handytrust_v4/1.2/head.vm")
+</head>
+##子ウィンドウでロードイベントがある場合
+#elseif ($isLoadEvent && !$isEmbedded)
+<html>
+<head>
+#parse("/template/base/handytrust_v4/1.2/head.vm")
+</head>
+##子ウィンドウでロードイベントがない場合
+#else
+#parse("/template/base/handytrust_v4/1.2/head.vm")
+#end
+
+##トップウィンドウの場合
+#if (!$isViewObject)
+<body>
+    <div id="dctp_page">
+        <div id="dctp_container">
+			#if ($isTopWindow == true)
+	        ####### header #######
+			#parse("/template/base/${serviceId}/1.2/header_tab.vm")
+			#end
+##子ウィンドウでロードイベントがある場合
+#elseif ($isLoadEvent && !$isEmbedded)
+<body>
+#end
+        	####### main contents #######
+            <div id="${suffix}dctp_contents" class="dctp_contents_$helper.escapeHtml(${toolview}) tp_formtype_LIST tp_formcolor_${formData.color}">
+            	<div id="${suffix}dctp_main">
+				<!-- ヘッダー領域 -->
+					#set($titleLevel = 2)
+					#if (${formData.viewType} == "refview")
+						#set($titleLevel = 3)
+					#end
+					<h${titleLevel} id="dctp_title" class="dctp_h${titleLevel} dctp_h${titleLevel}_back0${formData.color}">
+						<div class="tp_action">
+							#set($actionFlg = false)
+							#if($formData.action.isDownload())
+								#set($actionFlg = true)
+							#end
+							#if($formData.action.isChart())
+								#set($actionFlg = true)
+							#end
+							#if($formData.action.isReport())
+								#set($actionFlg = true)
+							#end
+							#if($formData.action.isSearchSave())
+								#set($actionFlg = true)
+							#end
+							#if ($actionFlg == true)
+								<form id="${suffix}actionForm" name="actionForm" method="post" onSubmit="actionMenu('${suffix}actionForm'#if ($isViewObject), viewObjectInfo['$helper.escapeHtml($viewObjectId)'] #end);return false;">
+									<select id="actions">
+										<option>アクション</option>
+										#if($formData.control == "REPORT" || $formData.control == "APPREPORT")
+											<option value="Update:Report">レポート編集</option>
+											<option value="Delete:Report">レポート削除</option>
+										#else
+											#if (!$formData.ref && !($formData.viewType && $formData.viewType == "refview") && $userinfo && $userinfo.acclevel != 99 && $formData.action.isSearchSave())
+												<optgroup label="検索条件">
+													<option value="Save:Condition">保存</option>
+													#if (${formData.selectSaveConditionId} && ${formData.selectSaveConditionId} != "-1")
+														<option value="Edit:Condition">Edit</option>
+														<option value="Delete:Condition">Delete</option>
+													#end
+													<option value="Reset:Condition">リセット</option>
+												</optgroup>
+												#if ($formData.saveConditionSet && $formData.saveConditionSet.saveConditions.size() > 0)
+													<optgroup label="検索条件一覧">
+													#foreach ($saveCondition in $formData.saveConditionSet.saveConditions)
+														<option value="View:Condition${saveCondition.id}"
+															#if(${saveCondition.id} == ${formData.selectSaveConditionId}) selected #end
+															>
+															#if(${saveCondition.defaultView}==true)☆#end${saveCondition.label}
+															#if(${saveCondition.id} == ${formData.selectSaveConditionId})(選択中)#end
+														</option>
+													#end
+													</optgroup>
+												#end
+											#end
+										#end
+										#if($formData.action.isDownload())
+											<optgroup label="ダウンロード">
+												<option value="Download:Form">Excel</option>
+												<option value="DownloadCsv:Form">CSV</option>
+											</optgroup>
+										#end
+										#if(($formData.action.isChart() || $formData.action.isReport()) && $userinfo && $userinfo.acclevel != 99)
+											<optgroup label="作成">
+												#if($formData.action.isChart())
+													<option value="Create:Chart">グラフ</option>
+												#end
+												#if($formData.control != "APPREPORT" && $formData.action.isReport())
+													<option value="Create:Report">レポート</option>
+												#end
+												<!--
+													<option value="Create:OutputExcel">Excel出力</option>
+												-->
+											</optgroup>
+										#end
+										#if ($formData.reports.size() > 0)
+											<optgroup label="レポート">
+												#foreach ($report in $formData.reports.entrySet())
+													<option value="$report.getKey()"
+														#if($formData.reportId == $report.getKey())
+															selected
+														#end
+													>$helper.escapeHtml($report.getValue())</option>
+												#end
+											</optgroup>
+										#end
+									</select>
+									<input type="submit" class="btn_action" value="実行" />
+								</form>
+							#end
+							#if (${formData.contentsHelp})
+								${formData.contentsHelp.getTag()}
+							#end
+						</div>
+						<div class="tp_appname">
+							#if ($formData.img)
+								$formData.getIconTag("16", ${path})
+							#end
+						    <span>$helper.escapeHtml($formData.title)
+								#if($formData.reportId)
+									 | レポート
+								#end
+							</span>
+						</div>
+					</h${titleLevel}>
+
+					#foreach ($layout in $formData.formStyle.refViewLayouts)
+						#if ($layout.viewType == "tab" && $layout.position == "top" && $formData.viewObjects.size() > 0)
+							#set($viewCnt = 0)
+							<div class="refViewMenu refViewMenuTop">
+								| <a href="javascript:void(0);" onClick="switchRefView(-1,'TOP', true);return false;">
+										#if ($formData.imgUri) <img src="${path}${formData.imgUri}" /> #end $helper.escapeHtml($formData.title)</a> |
+							#foreach ($setObject in $layout.setObjects)
+								#if ($formData.viewObjects.get(${setObject.objectid}))
+									#set($viewObj = $formData.getViewObject(${setObject.objectid}))
+									 | <a href="javascript:void(0);" onClick="switchRefView(${viewCnt},'${viewObj.id}', true);return false;">
+											#if (${viewObj.img}) ${viewObj.getIconTag("16", $path)} #end $viewObj.title
+										</a> |
+									#set($viewCnt = $viewCnt + 1)
+								#end
+							#end
+							</div>
+						#end
+					#end
+
+					<div id="${suffix}dctp_recordset">
+					<div class="dctp_submenu_01">
+						<div id="dctp_ichiran_01_top_mid_transition_header">
+							#if ($formData.formStyle.transHeader)
+								#foreach($setObject in $formData.formStyle.transHeader.setObjects)
+									#if ($formData.getFormObject(${setObject.objectid}))
+										#set ($formObj = $formData.getFormObject(${setObject.objectid}))
+										#if ($formObj.inputType != "hidden")
+											#if ($isViewObject)
+											$formObj.getTag(false, true, true, true, true, ${suffix})
+											#else
+											$formObj.getTag(false)
+											#end
+										#end
+									#end
+								#end
+							#else
+								#if ($formData.beforeFormTitle && !$isViewObject)
+									<a href="javascript:void(0)" onClick="history.back();return false;">
+										QUAY LẠI
+									</a>
+								#end
+							#end
+						</div>
+						##<div class="clearfloat">
+						##</div>
+					</div>
+					#if ($errors)
+						<div id="error">
+							#foreach($e in $errors)
+								$e
+							#end
+						</div>
+					#end
+					<div class="dctp_ichiran_01">
+
+						<div class="dctp_ichiran_01_top">
+							<div class="dctp_ichiran_01_top_top">
+								<div class="dctp_ichiran_01_top_top_left">
+								</div>
+								<div class="dctp_ichiran_01_top_top_right">
+								</div>
+								<div class="dctp_ichiran_01_top_top_center">
+								</div>
+							</div>
+							<div class="dctp_ichiran_01_top_mid">
+								<div class="dctp_ichiran_01_top_button">
+									#if ($formData.formStyle.header)
+										#foreach($setObject in $formData.formStyle.header.setObjects)
+											#if ($formData.getFormObject(${setObject.objectid}))
+												#set ($formObj = $formData.getFormObject(${setObject.objectid}))
+												#if ($formObj.inputType != "hidden")
+													#if ($isViewObject)
+													$formObj.getTag(false, true, true, true, true, ${suffix})
+													#else
+													$formObj.getTag(false)
+													#end
+												#end
+											#end
+										#end
+									#else
+										#if ($isViewObject)
+										#if(($formData.control == "EDIT" || $formData.control == "ROWCOPY" ) && $formData.isUpdate())
+											<input type="submit" onClick="submitContentsByAjax('$helper.escapeHtml($viewObjectId)', '${suffix}editForm', '$appNo', '$funcId', 'UPDATE', 'EDIT', null);return false;"
+													class="btn_size_05" value="更新" />
+										#end
+										#if ($formData.isCreate())
+											<input type="button" onClick="submitContentsByAjax('$helper.escapeHtml($viewObjectId)', null, '$appNo', '$funcId', 'RECORD', 'CREATE', null);return false;"
+												class="btn_size_07" value="新規作成" />
+										#end
+										#else
+										#if(($formData.control == "EDIT" || $formData.control == "ROWCOPY" ) && $formData.isUpdate())
+											<input type="submit" onClick="submitContents('editForm', '$appNo', '$funcId', 'UPDATE', 'EDIT', null);return false;"
+													class="btn_size_05" value="更新" />
+										#end
+										#if ($formData.isCreate())
+											<input type="button" onClick="submitContents(null, '$appNo', '$funcId', 'RECORD', 'CREATE', null);return false;"
+												class="btn_size_07" value="新規作成" />
+										#end
+										#end
+									#end
+									##<div class="clearfloat">
+									##</div>
+								</div>
+								#if ($formData.header && $formData.header.size() > 0)
+									#set($hiddenTag = "")
+									<form id="${suffix}searchForm" name="${suffix}searchForm" method="post" onSubmit="javascript:return false;">
+										#set($searchFlg = false)
+										#foreach($headerObj in $formData.header)
+											#if ($headerObj.inputType != "hidden")
+												#set($searchFlg = true)
+											#else
+												#if ($isViewObject)
+												#set($hiddenTag = $hiddenTag + $headerObj.getTag(false, true, true, true, true, ${suffix}))
+												#else
+												#set($hiddenTag = $hiddenTag + $headerObj.getTag(false))
+												#end
+											#end
+										#end
+										#if ($formData.formStyle.search && $searchFlg == true)
+											<div id="layoutSearch">
+												#if ($formData.formStyle.search.header)
+													<div id="layoutSearchHeader" style="${formData.formStyle.search.header.getStyle()}">
+														#foreach($setObject in $formData.formStyle.search.header.setObjects)
+															#if ($formData.getFormObject(${setObject.objectid}))
+																#set ($formObj = $formData.getFormObject(${setObject.objectid}))
+																#if ($isViewObject)
+																<span style="white-space:nowrap;">$formObj.getTag(true, true, true, true, true, ${suffix})</span>
+																#else
+																<span style="white-space:nowrap;">$formObj.getTag(true)</span>
+																#end
+															#end
+														#end
+													</div>
+												#end
+												<div id="layoutSearchBody">
+													#if ($formData.formStyle.search.left)
+														<div id="layoutSearchLeft" style="$formData.formStyle.search.left.getStyle()">
+															#foreach($setObject in $formData.formStyle.search.left.setObjects)
+																#if ($formData.getFormObject(${setObject.objectid}))
+																	#set ($formObj = $formData.getFormObject(${setObject.objectid}))
+																	#if ($isViewObject)
+																	<span style="white-space:nowrap;">$formObj.getTag(true, true, true, true, true, ${suffix})</span>
+																	#else
+																	<span style="white-space:nowrap;">$formObj.getTag(true)</span>
+																	#end
+																#end
+															#end
+														</div>
+													#end
+													#if ($formData.formStyle.search.right)
+														<div id="layoutSearchRight" style="$formData.formStyle.search.right.getStyle()">
+															#foreach($setObject in $formData.formStyle.search.right.setObjects)
+																#if ($formData.getFormObject(${setObject.objectid}))
+																	#set ($formObj = $formData.getFormObject(${setObject.objectid}))
+																	#if ($isViewObject)
+																	<span style="white-space:nowrap;">$formObj.getTag(true, true, true, true, true, ${suffix})</span>
+																	#else
+																	<span style="white-space:nowrap;">$formObj.getTag(true)</span>
+																	#end
+																#end
+															#end
+														</div>
+													#end
+													<div id="layoutSearchCenter" style="$formData.formStyle.search.getSearchBodyStyle()">
+														#foreach($layout in $formData.formStyle.search.layouts)
+															#set($display = "display:block;")
+															#if (${layout.isVisible($formData.header)} == false)
+																#set($display = "display:none;")
+															#end
+															<div id="${suffix}${layout.id}" class="layoutSearchGroup" style="$display">
+																<div class="layoutTitle layoutTitleList">
+																	#if ($layout.open != "none")
+																		<p class="layoutButton">
+																			#if ($layout.open == "true")
+																				<a href="javascript:void(0)" id="${suffix}${layout.id}Button" class="btn_remove"
+																					onClick="openCloseSearchLayoutBlock('layoutSearchGroup_${suffix}${layout.id}', '${suffix}${layout.id}Button');" ></a>
+																			#else
+																				<a href="javascript:void(0)" id="${suffix}${layout.id}Button" class="btn_add"
+																					onClick="openCloseSearchLayoutBlock('layoutSearchGroup_${suffix}${layout.id}', '${suffix}${layout.id}Button');" ></a>
+																			#end
+																		</p>
+																	#end
+																	#if ($layout.label)
+																		<p class="layoutTitleText">
+																			$layout.label
+																		</p>
+																	#end
+																</div>
+																<div id="layoutSearchGroup_${suffix}${layout.id}" class="layoutSearchGroupBlock #if ($layout.open == "true" || $layout.open == "false") layoutSearchGroupBlockOpen #end"
+																	#if ($layout.open == "false") style="display:none;${layout.getStyle()}" #end >
+																		#if ($layout.grid == "true")
+																			<table class="layoutSearchGroupGrid" style="${layout.getHorizontalStyle()}">
+																			#set ($objCnt = 0)
+																			#set ($labelPos = 2)
+																			#set ($objW = 100 / (${layout.col} * ${labelPos}))
+																			#foreach($setObject in $layout.setObjects)
+																				#if (${objCnt} % ${layout.col} * ${labelPos} == 0)
+																					<tr>
+																				#end
+																				#if (${setObject.objectid} == "")
+																						<td colspan="${labelPos}"></td>
+																				#else
+																					#if ($formData.getHeader(${setObject.objectid}))
+																						#set ($formObj = $formData.getHeader(${setObject.objectid}))
+																						#set ($isLabel = true)
+																						#if ($formObj.label && $formObj.label != "" && $formObj.inputType != "hidden" && $formObj.inputType != "choice_multi")
+																							#if (${labelPos} == 2)
+																								<th class="layoutSearchCellLabel" style="width:${objW}%;">
+																									$formObj.label
+																								</th>
+																							#end
+																						#else
+																							#set ($isLabel = false)
+																						#end
+																						#set ($tObjW = ${objW})
+																						#if ($isLabel == false)
+																							#set ($tObjW = ${objW} * ${labelPos})
+																						#end
+																						<td class="layoutSearchCellValue" style="width:${tObjW}%;" #if ($isLabel == false) colspan="${labelPos}" #end >
+																						#if ($formObj.label && $formObj.label != "" && $formObj.inputType == "choice_multi")
+																							#set ($labelPos = 1)
+																							#set ($isLabel = true)
+																						#end
+																						#if (${labelPos} == 1 && $isLabel)
+																							<span class="layoutSearchCellLabel" style="font-weight:bold;">$formObj.label</span><br/>
+																						#end
+																						#if ($isViewObject)
+																						<span style="white-space:nowrap;">$formObj.getTag(false, true, true, true, true, ${suffix})</span>
+																						#else
+																						<span style="white-space:nowrap;">$formObj.getTag(false)</span>
+																						#end
+																						#if ($setObject.linefeed == true)
+																							<br/>
+																						#end
+																						</td>
+																					#end
+																				#end
+																				#set ($objCnt = $objCnt + 1)
+																				#if (${objCnt} % ${layout.col} * ${labelPos} == 0)
+																					</tr>
+																				#end
+																			#end
+																			#if (${objCnt} % ${layout.col} * ${labelPos} != 0)
+																					</tr>
+																			#end
+																			</table>
+																		#else
+																			<div class="layoutSearchGroupNormal" style="${layout.getStyle()}">
+																			#foreach($setObject in $layout.setObjects)
+																				#if ($formData.getHeader(${setObject.objectid}))
+																					#set ($formObj = $formData.getHeader(${setObject.objectid}))
+																					#if (${formObj.inputType} != "hidden")
+																						#if ($isViewObject)
+																						<span style="white-space:nowrap;">$formObj.getTag(true, true, true, true, true, ${suffix})<span>　</span></span>
+																						#else
+																						<span style="white-space:nowrap;">$formObj.getTag(true)<span>　</span></span>
+																						#end
+																					#end
+																				#end
+																			#end
+																			</div>
+																		#end
+																</div>
+																#if ($layout.open != "none")
+																	<div class="clearfloat">
+																	</div>
+																#end
+															</div>
+														#end
+													</div>
+												</div>
+												#if ($formData.formStyle.search.footer)
+													<div id="layoutSearchFooter" style="${formData.formStyle.search.footer.getStyle()}">
+														#foreach($setObject in $formData.formStyle.search.footer.setObjects)
+															#if ($formData.getFormObject(${setObject.objectid}))
+																#set ($formObj = $formData.getFormObject(${setObject.objectid}))
+																#if (${formObj.inputType} != "hidden")
+																	#if ($isViewObject)
+																	<span style="white-space:nowrap;">$formObj.getTag(true, true, true, true, true, ${suffix})</span>
+																	#else
+																	<span style="white-space:nowrap;">$formObj.getTag(true)</span>
+																	#end
+																#end
+															#end
+														#end
+													</div>
+												#end
+											</div>
+										#end
+										$hiddenTag
+									</form>
+								#end
+								#if($formData.searchType == "multiple")
+									<div id="multipleSelectButtons">
+										<input id="allCheckSearchButton" type="button" class="btn_size_09 marginleft10" value="すべて選択" />
+										<input id="clearCheckSearchButton" type="button" class="btn_size_09 marginleft10" value="選択を解除" />
+									</div>
+								#end
+							</div>
+							<div class="dctp_ichiran_01_top_bottom">
+							</div>
+						</div>
+
+						#set($hiddenTag = "")
+						<form id="${suffix}editForm" name="${suffix}editForm" method="post" onSubmit="javascript:return false;">
+							<div class="dctp_ichiran_01_mid">
+								<table class="dctp_ichiran_table" cellspacing="0px" text-align:center" >
+								
+										
+									
+									<!-- 表示カラム名 -->
+									<tr class="ichiran_tr_col dctp_ichiran_01_mid_even">
+											#set($selectCheckFlg = false)
+											#if($formData.searchType == "multiple")
+												#set($selectCheckFlg = true)
+												<th class="ichiran_01_mid_data ichiran_01_mid_data_left ichiran_01_mid_data_searchcheck">
+													&nbsp;
+												</th>
+											#end
+											#set($columnCnt = 0)
+											#foreach($column in $formData.columns)
+												#if ($column.inputType != "hidden")
+													#set($columnClass = "")
+													#if ($columnCnt == 0 && $selectCheckFlg == false)
+														#set($columnClass = "ichiran_01_mid_data_left")
+													#elseif ($columnCnt == $formData.columns.size() - 1 && $formData.reportId)
+														#set($columnClass = "ichiran_01_mid_data_right")
+													#end
+													#set($colFormObj = $formData.getFormObject($column.name))
+													<th class="ichiran_01_mid_data $columnClass"
+														style="#if($colFormObj.width)width:$colFormObj.width;#end #if($colFormObj.isNum()==true)text-align:center; #end">
+														$column.getTag(true)
+													</th>
+												#end
+												#set($columnCnt = $columnCnt + 1)
+											#end
+											#if(!$formData.reportId)
+												<th class="ichiran_01_mid_data ichiran_01_mid_data_right">
+													&nbsp;
+												</th>
+											#end
+									</tr>
+
+									<!-- データ部 -->
+									#set($recordCnt = 0)
+									#foreach($record in $formData.listRecords)
+										#set($recordColor = $recordCnt % 2)
+										#if($recordColor == 0)
+											<tr class="ichiran_tr_data${recordCnt} ichiran_tr_data dctp_ichiran_01_mid_odd">
+										#else
+											<tr class="ichiran_tr_data${recordCnt} ichiran_tr_data dctp_ichiran_01_mid_even">
+										#end
+											#set($selectCheckFlg = false)
+											#if($formData.searchType == "multiple")
+												#set($selectCheckFlg = true)
+												<td class="ichiran_01_mid_data ichiran_01_mid_data_left ichiran_01_mid_data_searchcheck">
+													<input id="searchCheck_${record.recordNo}" name="searchCheck" type="checkbox"  style="text-align:center"/>
+												</td>
+											#end
+											#set($columnCnt = 0)
+											#foreach($recordObj in $record.recordObjects)
+												#if ($recordObj.inputType != "hidden")
+													#set($columnClass = "")
+													#if ($columnCnt == 0 && $selectCheckFlg == false)
+														#set($columnClass = "ichiran_01_mid_data_left")
+													#elseif ($columnCnt == $record.recordObjects.size() - 1 && $formData.reportId)
+														#set($columnClass = "ichiran_01_mid_data_right")
+													#end
+													<td class="ichiran_01_mid_data $columnClass"
+														style="#if($recordObj.width)width:$recordObj.width;#end #if($recordObj.height)height:$recordObj.height;overflow:hidden;#end #if($recordObj.isNum()==true)text-align:right;#end"
+													>
+														#if ($isViewObject)
+														$recordObj.getTag(true, true, ${suffix})
+														#else
+														$recordObj.getTag()
+														#end
+													</td>
+												#else
+													#if ($isViewObject)
+													#set($hiddenTag = $hiddenTag + $recordObj.getTag(false, true, ${suffix}))
+													#else
+													#set($hiddenTag = $hiddenTag + $recordObj.getTag(false))
+													#end
+												#end
+												#set($columnCnt = $columnCnt + 1)
+											#end
+
+											#if(!$formData.reportId)
+												<td class="ichiran_01_mid_editbtn ichiran_01_mid_data_right">
+													<span>
+													#if ($isViewObject)
+													#if ($record.isUpdate() && !${formData.recordsWorkflowInfo} && $formData.isShowEditIcon())
+														<!--
+														<input type="button" onClick="submitContentsByAjax('$helper.escapeHtml($viewObjectId)', null, '$appNo', '$funcId', 'RECORD', 'EDIT', '$record.recordNo');return false;"
+															class="btn_size_03 floatleft5" value="Edit" />
+														
+														#if ($record.isCopyRecordFlg())
+														<a onClick="submitContentsByAjax('$helper.escapeHtml($viewObjectId)', null, '$appNo', '$funcId', 'RECORD', 'ROWCOPY', '$record.recordNo');return false;"
+															class="btn_edit" title="Edit"></a>
+														#else
+														<a onClick="submitContentsByAjax('$helper.escapeHtml($viewObjectId)', null, '$appNo', '$funcId', 'RECORD', 'EDIT', '$record.recordNo');return false;"
+															class="btn_edit" title="Edit"></a>
+														#end -->
+													#end
+													#if ($record.isDelete() && $formData.isShowDeleteIcon())
+														<!--
+														<input type="button" onClick="submitContents(null, '$appNo', '$funcId', 'DELETE', myControl, '$record.recordNo');return false;"
+															class="btn_size_03 floatleft5" value="Delete" />
+														-->
+														<a onClick="submitContentsByAjax('$helper.escapeHtml($viewObjectId)', null, '$appNo', '$funcId', 'DELETE', viewObjectInfo['$helper.escapeHtml(${viewObjectId})'].myControl, '$record.recordNo');return false;"
+															class="btn_delete" title="Delete"></a>
+													#end
+													<!--#if ($formData.isCreate() && $formData.isShowCopyIcon())
+															<a onClick="submitContentsByAjax('$helper.escapeHtml($viewObjectId)', null, '$appNo', '$funcId', 'RECORD', '$record.getCopyType()', '$record.recordNo');return false;"
+																class="btn_copy" title="Copy"></a>
+													#end -->
+													#else
+													#if ($record.isUpdate() && !${formData.recordsWorkflowInfo} && $formData.isShowEditIcon())
+														<!--
+														<input type="button" onClick="submitContents(null, '$appNo', '$funcId', 'RECORD', 'EDIT', '$record.recordNo');return false;"
+															class="btn_size_03 floatleft5" value="編集" />
+														
+														#if ($record.isCopyRecordFlg())
+														<a onClick="submitContents(null, '$appNo', '$funcId', 'RECORD', 'ROWCOPY', '$record.recordNo');return false;"
+															class="btn_edit" title="Edit"></a>
+														#else
+														<a onClick="submitContents(null, '$appNo', '$funcId', 'RECORD', 'EDIT', '$record.recordNo');return false;"
+															class="btn_edit" title="Edit"></a>
+														#end  -->
+													#end
+													#if ($record.isDelete() && $formData.isShowDeleteIcon())
+														<!--
+														<input type="button" onClick="submitContents(null, '$appNo', '$funcId', 'DELETE', myControl, '$record.recordNo');return false;"
+															class="btn_size_03 floatleft5" value="Delete" />
+														-->
+														<a onClick="submitContents(null, '$appNo', '$funcId', 'DELETE', myControl, '$record.recordNo');return false;"
+															class="btn_delete" title="Delete"></a>
+													#end
+													<!--#if ($formData.isCreate() && $formData.isShowCopyIcon())
+															<a onClick="submitContents(null, '$appNo', '$funcId', 'RECORD', '$record.getCopyType()', '$record.recordNo');return false;"
+																class="btn_copy" title="Copy"></a>
+													#end -->
+													#end
+
+													<!--レコードNO(Hidden)-->
+													<input type="hidden" name="recordNo" value='$record.recordNo'/>
+													</span>
+												</td>
+											#end
+										#set($recordCnt = $recordCnt + 1)
+										</tr>
+									#end
+								</table>
+							</div>
+
+							<div class="dctp_ichiran_01_bottom">
+								<div class="dctp_ichiran_01_bottom_top">
+									#foreach($footer in $formData.footer)
+										<div class="footer_summary">
+											$footer.label
+											#if ($isViewObject)
+											<span class="footer_summary_data">$footer.getTag(true, ${suffix})</span>
+											#else
+											<span class="footer_summary_data">$footer.getTag()</span>
+											#end
+										</div>
+									#end
+									<div class="footer">
+									#if($formData.searchType == "multiple")
+										<input id="selectCheckSearchButton" type="button" class="btn_size_05" value="選択" />
+									#end
+									#if ($formData.formStyle.footer)
+										#foreach($setObject in $formData.formStyle.footer.setObjects)
+											#if ($formData.getFormObject(${setObject.objectid}))
+												#set ($formObj = $formData.getFormObject(${setObject.objectid}))
+												#if ($formObj.inputType != "hidden")
+													#if ($isViewObject)
+													$formObj.getTag(false, true, true, true, true, ${suffix})
+													#else
+													$formObj.getTag(false)
+													#end
+												#end
+											#end
+										#end
+									#end
+									</div>
+								</div>
+								#set ($targetId = "")
+								#if ($isViewObject) #set ($targetId = $helper.escapeHtml($viewObjectId)) #end
+								<div class="dctp_ichiran_01_bottom_mid">
+									<div class="dctp_ichiran_01_bottom_pageVolume pagevolume_color_${formData.color}">
+										#if ($formData.listData.limitSize != -1 && $formData.listData.topRecordIndex > 0)
+											<span class="dctp_ichiran_page_arrow dctp_ichiran_page_arrow_before">
+												<a href="javascript:void(0)" onClick="beforeListContents('$targetId');return false;">
+												<img src="${path}img/btn/dctp_main_left.gif" alt="" id="dctp_formerpage" />
+												<span class="page_arrow">&lt;</span>Trang Trước</a>
+											</span>
+										#end
+										#set ($pageSize = (${formData.listData.recordCnt} - 1) / ${formData.listData.limitSize} + 1)
+										#set ($nowPage = ${formData.listData.topRecordIndex} / ${formData.listData.limitSize} + 1)
+										#if ($nowPage - 10 < 1)
+											#set ($firstPage = 1)
+										#else
+											#set ($firstPage = $nowPage - 10)
+										#end
+										#if ($nowPage + 9 > $pageSize)
+											#set ($lastPage = $pageSize)
+										#else
+											#set ($lastPage = $nowPage + 9)
+										#end
+										#if ($lastPage < $firstPage)
+											#set ($lastPage = $firstPage)
+											#set ($pageSize = $lastPage)
+										#end
+										#if ($formData.listData.limitSize != -1)
+											#set ($pageCnt = $firstPage - 1)
+											<span class="dctp_ichiran_page">
+												#if ($firstPage != 1)
+													<a href="javascript:void(0)"
+														onClick="moveListContents(0, ${formData.listData.limitSize}, '$targetId');return false;">1</a>...
+												#end
+												#foreach($!dummy in [$firstPage..$lastPage])
+													#set ($pageTopIndex = $pageCnt * ${formData.listData.limitSize})
+													#if ($pageTopIndex != ${formData.listData.topRecordIndex})
+													<a href="javascript:void(0)"
+														onClick="moveListContents($pageTopIndex, ${formData.listData.limitSize}, '$targetId'); return false;">$!dummy</a>
+													#else
+														<span class="dctp_ichiran_page_now">$!dummy</span>
+													#end
+													#set ($pageCnt = $pageCnt + 1)
+												#end
+												#if ($lastPage != $pageSize)
+													#set ($lastPageIndex = ($pageSize - 1) * ${formData.listData.limitSize})
+													...<a href="javascript:void(0)"
+															onClick="moveListContents($lastPageIndex, ${formData.listData.limitSize}, '$targetId'); return false;">$pageSize</a>
+												#end
+											</span>
+										#else
+											<span class="dctp_ichiran_page">
+												<span class="dctp_ichiran_page_now">1</span>
+											</span>
+										#end
+										#if ($formData.listData.limitSize != -1 && $formData.listData.topRecordIndex + $formData.listData.limitSize < $formData.listData.recordCnt)
+											<span class="dctp_ichiran_page_arrow dctp_ichiran_page_arrow_next">
+												<a href="javascript:void(0)" onClick="nextListContents('$targetId');return false;">Trang Tiếp
+												<img src="${path}img/btn/dctp_main_right.gif" alt="" id="dctp_nextpage" />
+												<span class="page_arrow">&gt;</span>
+												</a>
+											</span>
+										#end
+									</div>
+									<div class="dctp_ichiran_01_bottom_pageSize">
+										#if ($formData.listData.limitSize != -1)
+											#set ($bottomRecordIndex = $formData.listData.topRecordIndex + $formData.listData.limitSize)
+										#else
+											#set ($bottomRecordIndex = $formData.listData.recordCnt)
+										#end
+										#if ($bottomRecordIndex > $formData.listData.recordCnt)
+											#set ($bottomRecordIndex = $formData.listData.recordCnt)
+										#end
+										#if ($formData.listData.recordCnt > 0)
+											#set ($topRecordIndex = $formData.listData.topRecordIndex + 1)
+										#else
+											#set ($topRecordIndex = 0)
+										#end
+										<span class="dctp_ichiran_01_pagevolume">
+											Hiển Thị ${topRecordIndex}-${bottomRecordIndex}/Tổng Số ${formData.listData.recordCnt}
+										</span>
+										(${formData.handleTime}ms)
+										##(${formData.handleTime}ms ${formData.detailHandleTime})
+									</div>
+								</div>
+								<div class="dctp_ichiran_01_bottom_bottom">
+									<div class="dctp_ichiran_01_bottom_bottom_left">
+									</div>
+									<div class="dctp_ichiran_01_bottom_bottom_right">
+									</div>
+									<div class="dctp_ichiran_01_bottom_bottom_center">
+									</div>
+								</div>
+							</div>
+							$hiddenTag
+						</form>
+					</div>
+
+					#if ($formData.charts.size() > 0)
+						<!-- グラフ -->
+						#foreach ($chart in $formData.charts)
+							#if ($isViewObject)
+								$chart.getTag($viewObjectId)
+							#else
+								$chart.getTag()
+							#end
+						#end
+					#end
+					<!-- 参照ビュー領域 -->
+					<div class="ref">
+						#set($viewCnt = 0)
+						#foreach ($layout in $formData.formStyle.refViewLayouts)
+							#if ($layout.viewType == "tab" && $layout.position != "top")
+								<div class="refViewMenu refViewMenuBottom">
+								#foreach ($setObject in $layout.setObjects)
+									#if ($formData.viewObjects.get(${setObject.objectid}))
+										#set($viewObj = $formData.getViewObject(${setObject.objectid}))
+										 | <a href="javascript:void(0);" onClick="switchRefView(${viewCnt},'${viewObj.id}', false);return false;"
+											target="${viewObj.id}">#if (${viewObj.img}) ${viewObj.getIconTag("16", $path)} #end $viewObj.title</a> |
+										#set($viewCnt = $viewCnt + 1)
+									#end
+								#end
+								</div>
+							#end
+						#end
+
+						#set($viewCnt = 0)
+						#foreach ($layout in $formData.formStyle.refViewLayouts)
+							#foreach ($setObject in $layout.setObjects)
+								#if ($formData.getViewObject(${setObject.objectid}))
+									#set($viewObj = $formData.getViewObject(${setObject.objectid}))
+									#if($layout.viewType != "tab")
+									<div id="refView${viewCnt}" class="refView refViewList">
+										$viewObj.getTag()
+									</div>
+									#end
+									#set($viewCnt = $viewCnt + 1)
+								#end
+							#end
+						#end
+					</div>
+					</div>
+					<!-- 参照ビュー領域 -->
+					<div class="ref">
+						#set($viewCnt = 0)
+						#foreach ($layout in $formData.formStyle.refViewLayouts)
+							#foreach ($setObject in $layout.setObjects)
+								#if ($formData.getViewObject(${setObject.objectid}))
+									#set($viewObj = $formData.getViewObject(${setObject.objectid}))
+									#if($layout.viewType == "tab")
+										#if($layout.position != "top" && $viewCnt == 0)
+											<div id="refView${viewCnt}" class="refView">
+												$viewObj.getTag()
+											</div>
+										#else
+											<div id="refView${viewCnt}" class="refView" style="display:none;" >
+												$viewObj.getTag(false, $path)
+											</div>
+										#end
+									#end
+									#set($viewCnt = $viewCnt + 1)
+								#end
+							#end
+						#end
+					</div>
+				</div>
+            </div>
+#if (!$isViewObject)
+			<div id="dctp_footer">
+				<div id="footer_border"></div>
+			</div>
+        </div>
+    </div>
+</body>
+</html>
+#elseif ($isLoadEvent && !$isEmbedded)
+</body>
+</html>
+#end
