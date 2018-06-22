@@ -1,0 +1,1913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pcpreferences xmlns="http://tdc.co.jp/asp/handytrustv4/1.0">
+	<daoInfo>
+	     <!--Tao cac bang lien quan-->
+		<daoList>
+		
+			<dao dynamicTableName="false" id="NhanVienKH_dao"						name="jp.co.tdc.asp.handytrust.v4.server.dao.GenericDataBaseContorlDao"	tableName="NhanVienKH_dao" />
+		    <dao dynamicTableName="false" id="KhachHang_dao"				name="jp.co.tdc.asp.handytrust.v4.server.dao.GenericDataBaseContorlDao"  tableName="KhachHang_dao" 	/>
+			<dao dynamicTableName="false" id="YeuCau_dao"				name="jp.co.tdc.asp.handytrust.v4.server.dao.GenericDataBaseContorlDao"  tableName="YeuCau_dao" 	/>
+			
+			<dao dynamicTableName="false" id="BaoCaoThucHien_dao"				name="jp.co.tdc.asp.handytrust.v4.server.dao.GenericDataBaseContorlDao"  tableName="BaoCaoThucHien_dao" 	/>
+			
+			
+			<dao dynamicTableName="false" id="NhanVienHoTro_dao"						name="jp.co.tdc.asp.handytrust.v4.server.dao.GenericDataBaseContorlDao"	tableName="NhanVienHoTro_dao" />
+		    <dao dynamicTableName="false" id="BoPhanHoTro_dao"				name="jp.co.tdc.asp.handytrust.v4.server.dao.GenericDataBaseContorlDao"  tableName="BoPhanHoTro_dao" 	/>
+		</daoList>
+	</daoInfo>
+	
+	
+	<menuInfo>
+		<menuList>
+			
+			<menu control="VIEW"    img="02"   	id="func_KhachHang"				funcId="func_KhachHang"					 index="2" label="Thông tin khách hàng"    		type="LIST" />
+			<menu control="VIEW"    img="02"   	id="func_YeuCau"				funcId="func_YeuCau"					 index="1" label="Yêu cầu hỗ trợ"    		type="LIST" />
+			
+		</menuList>
+	</menuInfo>
+
+	<functionInfo>	
+	
+		<function daoid="BoPhanHoTro_dao"	id="funcBoPhanHoTro"	name="Bộ phận hỗ trợ"	defaultAuthority="fff" img="19" saveLastupdateData="false" saveVersionData="false">
+			<dataSet>
+				
+				<dataObject autoformat="000" 	autoinc="true" 		id="BoPhanHoTro_ID"		colname="BoPhanHoTro_ID" 	 			dataType="string" key="true"  label="STT"		    		length="10" 	notnull="false"  />	
+				<dataObject autoformat="" 		autoinc="false" 		id="BoPhanHoTro_Name" 	colname="BoPhanHoTro_Name" 		dataType="string" key="false" label="Tên bộ phận"	length="100" notnull="true" 	haveindex="false" />
+				<dataObject autoformat=""			autoinc="false" 		id="BoPhanHoTro_Phone" 	colname="BoPhanHoTro_Phone" 		dataType="string" key="false" label="Số Điện Thoại"	length="20" 	notnull="false" 	haveindex="false" />
+				<dataObject autoformat="" 		autoinc="false" 		id="BoPhanHoTro_Fax" 		colname="BoPhanHoTro_Fax" 			dataType="string" key="false" label="Fax"					length="20" 	notnull="false" 	haveindex="false" />
+				<!-- <dataObject autoformat="" autoinc="false" colname="PhongBanBan_TruongPhong"			dataType="string" haveindex="false" id="PhongBanBan_TruongPhong"			key="false"	label="Trưởng Phòng"			length="200" notnull="false"/> -->
+			</dataSet>
+			
+			<formSet>
+				<form type="RECORD" title="Thông tin chi tiết" 		scriptid="checkNaN" styleid="fontSet_record" layoutid="RECORD_VMA">
+					<formObjects>  
+						<formObject  contentLength="10" edit="all" id="BoPhanHoTro_ID"   			name="BoPhanHoTro_ID" 			inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="40" edit="all" id="BoPhanHoTro_Name"   		name="BoPhanHoTro_Name" 	inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="15" edit="all" id="BoPhanHoTro_Phone"		name="BoPhanHoTro_Phone" 	inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="15" edit="all" id="BoPhanHoTro_Fax"   		name="BoPhanHoTro_Fax" 		inputType="text" 		readonly="false" show="true"/>
+						<!-- <formObject id="PhongBanBan_TruongPhong"			name="PhongBanBan_TruongPhong"		readonly="true"		inputType="search" 	contentLength="50" maxLength="500" > -->
+							<!-- <searchCondition funcId="funcNhanVienDuAn" > -->
+								<!-- <setField> -->
+									<!-- <field currentField="PhongBanBan_TruongPhong" targetField="NhanVienDuAnName" />									 -->
+								<!-- </setField> -->
+							<!-- </searchCondition> -->
+						<!-- </formObject> -->
+						<formObject id="insertbutton" inputType="submit" value="HOÀN THÀNH" edit="create" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_INSERT(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="updatesavebutton" inputType="submit" value="CẬP NHẬT" edit="editview" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_UPDATE(RECORD,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="deletebutton" inputType="submit" value="XÓA" edit="view" authorityFlg="8">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="deleteRow();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="editbutton" inputType="submit" value="SỬA" edit="view" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_EDIT" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>	
+					
+					<formStyle>
+						<layout id="layouttransHeader" type="transHeader">      
+							<setObject id="beforebacklink" objectid="beforebacklink"  index="1"/>						
+						</layout>
+						
+						<layout id="layout0"           type="header">      
+							<setObject id="deletebutton" objectid="deletebutton"  index="4"/> 
+							<setObject id="editbutton" objectid="editbutton"  index="5"/> 
+						</layout>
+							
+						<layout id="layout1"           type="footer">      
+							<setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/>
+							<setObject id="insertbutton" objectid="insertbutton"  index="2"/>    
+						</layout>
+					</formStyle>
+				</form>
+				
+				<form type="LIST" 	title="Danh sách bộ phận" 	scriptid="checkNaN" styleid="fontSet_list" >
+					<conditionSet limit="40">
+					</conditionSet> 
+					
+					<formObjects>
+						<formObject  contentLength="5" edit="all" id="BoPhanHoTro_ID"   			width="5%"	name="BoPhanHoTro_ID" 			inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="40" edit="all" id="BoPhanHoTro_Name"   							name="BoPhanHoTro_Name" 	inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="15" edit="all" id="BoPhanHoTro_Phone"   	width="10%"	name="BoPhanHoTro_Phone" 	inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="15" edit="all" id="BoPhanHoTro_Fax"   		width="15%"	name="BoPhanHoTro_Fax" 		inputType="text" 	readonly="false" show="true"/>
+						
+						<formObject id="insertbutton" inputType="button" value="TẠO MỚI" edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_CREATE" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>
+					
+					<formStyle>
+						<layout id="layout1" type="header">
+							<setObject id="insertbutton" objectid="insertbutton"  index="1"/>
+						</layout>
+						
+						<layout id="search" type="search" >
+						</layout>
+					</formStyle>
+					
+					<columns>					
+						<column linkTarget="self">BoPhanHoTro_ID</column>
+						<column linkTarget="self">BoPhanHoTro_Name</column>
+						<column>BoPhanHoTro_Phone</column>
+						<column>BoPhanHoTro_Fax</column>
+					</columns>
+				</form>
+				 
+			</formSet>
+		</function>
+		
+		<function daoid="NhanVienHoTro_dao"		id="funcNhanVienHoTro"		name="Nhân sự hỗ trợ"  	defaultAuthority="fff" img="19" saveLastupdateData="false" saveVersionData="false">
+			<dataSet>
+				
+				<dataObject autoformat="00000" 	autoinc="true" id="NhanVienHoTro_ID"	colname="NhanVienHoTro_ID" 	 	dataType="string" key="true"  label="STT"		    length="10" notnull="false"  />	
+				<dataObject autoformat="" autoinc="false" id="NhanVienHoTro_Name" 	colname="NhanVienHoTro_Name" 		dataType="string" key="false" label="Họ Và Tên"	length="100" notnull="true" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienHoTro_ChucVu" 	colname="NhanVienHoTro_ChucVu" 	dataType="string" key="false" label="Chức Vụ"		length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienHoTro_Phone" 	colname="NhanVienHoTro_Phone" 	dataType="string" key="false" label="Số Điện Thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienHoTro_Email" 	colname="NhanVienHoTro_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="NhanVienHoTro_TrustproAccount" 	defaultvalue=""	colname="NhanVienHoTro_TrustproAccount" 		dataType="user" key="false" label="Account Phần Mềm"			length="20" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="BoPhanHoTro_ID" 	colname="BoPhanHoTro_ID" 	dataType="string" key="false" label="PhongBanBanQLDAID"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="BoPhanHoTro_Name" 	colname="BoPhanHoTro_Name" 	dataType="string" key="false" label="Bộ phận hỗ trợ"	length="200" notnull="false" haveindex="false" >
+					<reference funcId="funcBoPhanHoTro">
+						<referenceKeys>
+							<referenceKey currentkey="BoPhanHoTro_ID" targetkey="BoPhanHoTro_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+				
+				<!-- <dataObject autoformat="" autoinc="false" colname="PhongBan_TruongPhong_Name"			dataType="string" haveindex="false" id="PhongBan_TruongPhong_Name"			key="false"	label="Trưởng Phòng"			length="200" notnull="false"/> -->
+				<!-- <dataObject autoformat="" autoinc="false" colname="PhongBan_TruongPhong_Acc"			dataType="string" haveindex="false" id="PhongBan_TruongPhong_Acc"			key="false"	label="Trưởng Phòng Acc"			length="200" notnull="false"/> -->
+				
+			</dataSet>
+			
+			<formSet>
+				<form type="RECORD" title="Thông tin chi tiết" 		scriptid="checkNaN" styleid="fontSet_record" layoutid="RECORD_VMA">
+					<formObjects>  
+						<formObject  contentLength="10" edit="all" id="NhanVienHoTro_ID"   				name="NhanVienHoTro_ID" 					inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="40" edit="all" id="NhanVienHoTro_Name"   		name="NhanVienHoTro_Name" 			inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="10" edit="all" id="BoPhanHoTro_ID"   		name="BoPhanHoTro_ID" 			inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="BoPhanHoTro_Name"   	name="BoPhanHoTro_Name" 	inputType="search" 	readonly="true" 	show="true">
+							<searchCondition>
+								<setField>
+									<field currentField="BoPhanHoTro_Name" targetField="BoPhanHoTro_Name" />
+									<field currentField="BoPhanHoTro_ID" targetField="BoPhanHoTro_ID" />
+								</setField>
+							</searchCondition>
+						</formObject>
+						<!-- <formObject  contentLength="20" edit="all" id="PhongBan_TruongPhong_Acc"   	name="PhongBan_TruongPhong_Acc" 	inputType="hidden" 	readonly="true" 	show="true"/> -->
+						<!-- <formObject  contentLength="20" edit="all" id="PhongBan_TruongPhong_Name"   	name="PhongBan_TruongPhong_Name" 	inputType="search" 	readonly="true" 	show="true"> -->
+							<!-- <searchCondition funcId="funcNhanVienDuAn"> -->
+								<!-- <setField> -->
+									<!-- <field currentField="PhongBan_TruongPhong_Name" targetField="NhanVienDuAnName" /> -->
+									<!-- <field currentField="PhongBan_TruongPhong_Acc" targetField="NhanVienDuAnTrustproAccount" /> -->
+								<!-- </setField> -->
+							<!-- </searchCondition> -->
+						<!-- </formObject> -->
+						
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_ChucVu"   						name="NhanVienHoTro_ChucVu" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_Phone"   						name="NhanVienHoTro_Phone" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_Email"   						name="NhanVienHoTro_Email" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_TrustproAccount"   			name="NhanVienHoTro_TrustproAccount" 		inputType="user" 	readonly="false" show="true" value=" "	/>
+						
+						
+						<formObject id="insertbutton" inputType="button" value="HOÀN THÀNH" edit="create" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_INSERT(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="updatesavebutton" inputType="button" value="CẬP NHẬT" edit="editview" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_UPDATE(RECORD,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="deletebutton" inputType="hidden" value="XÓA" edit="view" authorityFlg="8">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="deleteRow();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="editbutton" inputType="hidden" value="SỬA" edit="view" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_EDIT" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="resetbutton" inputType="hidden" value="NHẬP LẠI    "  edit="edit" />
+					</formObjects>	
+					
+					<formStyle>
+						<layout col="1" editCol="1" id="layout_nghiphep_detail" index="1" label="Thông tin nhân sự ban Quản lý dự án" open="true" type="group" >
+							<setObject colspan="1" id="NhanVienHoTro_ID" 							index="99"		objectid="NhanVienHoTro_ID"/>
+							<setObject colspan="1" id="NhanVienHoTro_Name" 						index="1" 	 		objectid="NhanVienHoTro_Name"/>
+							<setObject colspan="1" id="BoPhanHoTro_ID" 					index="99" 	 	objectid="BoPhanHoTro_ID"/>
+							
+							<setObject colspan="1" id="BoPhanHoTro_Name" 					index="3" 	 		objectid="BoPhanHoTro_Name"/>
+							<setObject colspan="1" id="NhanVienHoTro_ChucVu" 						index="4" 	 		objectid="NhanVienHoTro_ChucVu"/>
+							<setObject colspan="1" id="NhanVienHoTro_Phone" 						index="4" 	 		objectid="NhanVienHoTro_Phone"/>
+							<setObject colspan="1" id="NhanVienHoTro_Email" 		index="4" 	 		objectid="NhanVienHoTro_Email"/>
+							
+							<setObject colspan="1" id="NhanVienHoTro_TrustproAccount" 						index="4" 	 		objectid="NhanVienHoTro_TrustproAccount"/>
+							
+							
+						</layout>
+							  
+						<layout id="layouttransHeader" type="transHeader">      
+							<setObject id="beforebacklink" objectid="beforebacklink"  index="1"/>						
+						</layout>
+						
+						<layout id="layout0"           type="header">      
+							<setObject id="deletebutton" objectid="deletebutton"  index="4"/> 
+							<setObject id="editbutton" objectid="editbutton"  index="5"/> 
+							<setObject id="insertbutton1" objectid="insertbutton1"  index="2"/>
+						</layout>
+							
+						<layout id="layout1"           type="footer">      
+							<setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/>
+							<setObject id="insertbutton" objectid="insertbutton"  index="2"/>    
+						</layout>
+					</formStyle>
+				</form>
+				
+				<form type="LIST" 	title="Danh sách nhân sự ban Quản lý dự án" 	scriptid="checkNaN" styleid="fontSet_list" >
+					<conditionSet limit="40">
+					</conditionSet> 
+					
+					<formObjects>
+						<formObject  contentLength="5" edit="all" id="NhanVienHoTro_ID"   width="5%"		name="NhanVienHoTro_ID" 						inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="NhanVienHoTro_Name"   				name="NhanVienHoTro_Name" 				inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_ChucVu"   			name="NhanVienHoTro_ChucVu"			inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_Phone"   				name="NhanVienHoTro_Phone" 				inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_Email"   				name="NhanVienHoTro_Email" 				inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienHoTro_TrustproAccount"   				name="NhanVienHoTro_TrustproAccount" 				inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="BoPhanHoTro_ID"	name="BoPhanHoTro_ID"	inputType="hidden" 	readonly="false" show="true"/>						
+						<formObject  contentLength="20" edit="all" id="BoPhanHoTro_Name"   				name="BoPhanHoTro_Name" 				inputType="hidden" 	readonly="false" show="true"/>
+						
+
+						<formObject id="insertbutton" inputType="button" value="TẠO MỚI" edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_CREATE" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="searchbutton" inputType="submit" value="TÌM KIẾM" edit="all" authorityFlg="1">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="SEARCH" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>
+					
+					<formStyle>
+						<layout id="layout1" type="header">
+							<setObject id="insertbutton" objectid="insertbutton"  index="1"/>
+							<setObject id="insertbutton1" objectid="insertbutton1"  index="2"/>		
+						</layout>
+						
+						<layout id="search" type="search" >
+							<layout id="searchbody" type="group" horizontal="right" open="none">
+								<setObject id="NhanVienHoTro_Name" 		objectid="NhanVienHoTro_Name" index="2" />
+								
+							</layout>
+							<layout id="right" type="right" width="100">							
+								<setObject id="searchbutton" objectid="searchbutton"  index="2"/>	
+							</layout>
+						</layout>
+					</formStyle>
+					
+					<header>
+						<headerField>NhanVienHoTro_Name</headerField>
+						
+					</header>
+					<columns>					
+						<column linkTarget="self">NhanVienHoTro_ID</column>
+						<column linkTarget="self">NhanVienHoTro_Name</column>
+						<column>NhanVienHoTro_ChucVu</column>
+						<column>NhanVienDuAnChucVu</column>
+						<column>NhanVienHoTro_Phone</column>
+						<column>NhanVienHoTro_Email</column>
+						<column>NhanVienHoTro_TrustproAccount</column>						
+						<column>BoPhanHoTro_ID</column>
+						<column>BoPhanHoTro_Name</column>
+						
+						
+					</columns>
+				</form>
+				 
+			</formSet>
+			
+		</function>
+		
+	
+		<function daoid="KhachHang_dao"	id="func_KhachHang"	name="Thông tin khách hàng"	defaultAuthority="fff" img="19" saveLastupdateData="false" saveVersionData="false">
+			<dataSet>
+				<dataObject autoinc="false" colname="creator" dataType="string" haveindex="true" id="creator" index="1" key="false" label="Creator" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="createdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="createdate" index="2" key="false" label="Create Date" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="updater" dataType="string" haveindex="true" id="updater" index="3" key="false" label="Updater" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="lastupdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="lastupdate" index="4" key="false" label="Last update" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="owner" dataType="string" haveindex="true" id="owner" index="5" key="false" label="Owner" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="ownergroup" dataType="string" haveindex="true" id="ownergroup" index="6" key="false" label="Đơn Vị Tiếp Nhận" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="domainid" dataType="string" haveindex="true" id="domainid" index="7" key="false" label="Domain ID" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="dataversion" dataFormat="0" dataType="integer" defaultvalue="1" haveindex="false" id="dataversion" index="8" key="false" label="Data version" length="50" notnull="false"/>
+				
+				
+				
+				<dataObject autoformat="CUS_0000" 	autoinc="true" 		id="KhachHang_ID"		colname="KhachHang_ID" 	 			dataType="string" key="true"  label="Mã khách hàng"		    		length="10" 	notnull="false"  />	
+				<dataObject autoformat="" 		autoinc="false" 		id="KhachHang_Name" 	colname="KhachHang_Name" 		dataType="string" key="false" label="Tên khách hàng"	length="200" notnull="true" 	haveindex="false" />
+				<dataObject autoformat=""			autoinc="false" 		id="KhachHang_Phone" 	colname="KhachHang_Phone" 		dataType="string" key="false" label="Số Điện Thoại"	length="20" 	notnull="false" 	haveindex="false" />
+				<dataObject autoformat="" 		autoinc="false" 		id="KhachHang_Address" 		colname="KhachHang_Address" 			dataType="string" key="false" label="Địa chỉ"					length="500" 	notnull="false" 	haveindex="false" />
+				
+				
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Name" 	colname="PhuTrach_Name" 		dataType="string" key="false" label="Phụ trách trực tiếp"	length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Phone" 	colname="PhuTrach_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Email" 	colname="PhuTrach_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Name" 	colname="QlyDuAn_Name" 		dataType="string" key="false" label="Quản lý dự án"	length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Phone" 	colname="QlyDuAn_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Email" 	colname="QlyDuAn_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Name" 	colname="LanhDaoPhong_Name" 		dataType="string" key="false" label="Lãnh đạo phòng"	length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Phone" 	colname="LanhDaoPhong_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Email" 	colname="LanhDaoPhong_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+			</dataSet>
+			
+			<formSet>
+				<form type="RECORD" title="Thông tin chi tiết" 		scriptid="checkNaN" styleid="fontSet_record" layoutid="RECORD_VMA">
+					<formObjects>  
+						<formObject  contentLength="50" edit="all" id="KhachHang_ID"   			name="KhachHang_ID" 			inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="50" edit="all" id="KhachHang_Name"   		name="KhachHang_Name" 	inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="50" edit="all" id="KhachHang_Phone"		name="KhachHang_Phone" 	inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="50" edit="all" id="KhachHang_Address"   		name="KhachHang_Address" 		inputType="text" 		readonly="false" show="true"/>
+						
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Name"   		name="PhuTrach_Name" 		inputType="search" 		readonly="false" show="true">
+							<searchCondition funcId="funcNhanVienHoTro">
+								<setField>
+									<field currentField="PhuTrach_Name" targetField="NhanVienHoTro_Name" />
+									<field currentField="PhuTrach_Phone" targetField="NhanVienHoTro_Phone" />
+									<field currentField="PhuTrach_Email" targetField="NhanVienHoTro_Email" />
+									
+								</setField>
+							</searchCondition>
+						</formObject>
+						<formObject  contentLength="30" edit="all" id="PhuTrach_Phone"   		name="PhuTrach_Phone" 		inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="PhuTrach_Email"   		name="PhuTrach_Email" 		inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="QlyDuAn_Name"   		name="QlyDuAn_Name" 		inputType="search" 		readonly="false" show="true">
+							<searchCondition funcId="funcNhanVienHoTro">
+								<setField>
+									<field currentField="QlyDuAn_Name" targetField="NhanVienHoTro_Name" />
+									<field currentField="QlyDuAn_Phone" targetField="NhanVienHoTro_Phone" />
+									<field currentField="QlyDuAn_Email" targetField="NhanVienHoTro_Email" />
+									
+								</setField>
+							</searchCondition>
+						</formObject>
+						<formObject  contentLength="30" edit="all" id="QlyDuAn_Phone"   		name="QlyDuAn_Phone" 		inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="QlyDuAn_Email"   		name="QlyDuAn_Email" 		inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="LanhDaoPhong_Name"   		name="LanhDaoPhong_Name" 		inputType="search" 		readonly="false" show="true">
+							<searchCondition funcId="funcNhanVienHoTro">
+								<setField>
+									<field currentField="LanhDaoPhong_Name" targetField="NhanVienHoTro_Name" />
+									<field currentField="LanhDaoPhong_Phone" targetField="NhanVienHoTro_Phone" />
+									<field currentField="LanhDaoPhong_Email" targetField="NhanVienHoTro_Email" />
+									
+								</setField>
+							</searchCondition>
+						</formObject>
+						<formObject  contentLength="30" edit="all" id="LanhDaoPhong_Phone"   		name="LanhDaoPhong_Phone" 		inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="LanhDaoPhong_Email"   		name="LanhDaoPhong_Email" 		inputType="text" 		readonly="false" show="true"/>
+						
+						
+						<formObject id="insertbutton" inputType="submit" value="HOÀN THÀNH" edit="create" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_INSERT(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="updatesavebutton" inputType="submit" value="CẬP NHẬT" edit="editview" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_UPDATE(RECORD,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="deletebutton" inputType="submit" value="XÓA" edit="view" authorityFlg="8">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="deleteRow();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="editbutton" inputType="submit" value="SỬA" edit="view" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_EDIT" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>	
+					
+					<formStyle>
+						<layout id="layouttransHeader" type="transHeader">      
+							<setObject id="beforebacklink" objectid="beforebacklink"  index="1"/>						
+						</layout>
+						
+						<layout id="layout0"           type="header">      
+							<setObject id="deletebutton" objectid="deletebutton"  index="4"/> 
+							<setObject id="editbutton" objectid="editbutton"  index="5"/> 
+						</layout>
+							
+						<layout id="layout1"           type="footer">      
+							<setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/>
+							<setObject id="insertbutton" objectid="insertbutton"  index="2"/>    
+						</layout>
+						
+						<layout col="2" editCol="2" id="layout_KhachHang_detail" index="1" label="Thông tin khách hàng" open="true" type="group" >
+							<setObject colspan="1" id="KhachHang_ID" 							index="99"		objectid="KhachHang_ID"/>
+							<setObject colspan="1" id="KhachHang_Name" 						index="1" 	 		objectid="KhachHang_Name"/>
+							<setObject colspan="1" id="KhachHang_Phone" 					index="99" 	 	objectid="KhachHang_Phone"/>
+							<setObject colspan="1" id="KhachHang_Address" 				index="2" 	 		objectid="KhachHang_Address"/>
+							
+						</layout>
+						
+						<layout col="3" editCol="3" id="layout_PhuTrach_detail" index="1" label="Phụ trách hỗ trợ" open="true" type="group" >
+							<setObject colspan="1" id="PhuTrach_Name" 							index="1"		objectid="PhuTrach_Name"/>
+							<setObject colspan="1" id="PhuTrach_Phone" 						index="2" 	 		objectid="PhuTrach_Phone"/>
+							<setObject colspan="1" id="PhuTrach_Email" 					index="3" 	 	objectid="PhuTrach_Email"/>
+							
+							<setObject colspan="1" id="QlyDuAn_Name" 							index="4"		objectid="QlyDuAn_Name"/>
+							<setObject colspan="1" id="QlyDuAn_Phone" 						index="5" 	 		objectid="QlyDuAn_Phone"/>
+							<setObject colspan="1" id="QlyDuAn_Email" 					index="6" 	 	objectid="QlyDuAn_Email"/>
+							
+							<setObject colspan="1" id="LanhDaoPhong_Name" 							index="7"		objectid="LanhDaoPhong_Name"/>
+							<setObject colspan="1" id="LanhDaoPhong_Phone" 						index="8" 	 		objectid="LanhDaoPhong_Phone"/>
+							<setObject colspan="1" id="LanhDaoPhong_Email" 					index="9" 	 	objectid="LanhDaoPhong_Email"/>
+							
+							
+						</layout>
+					</formStyle>
+					
+					<viewObjects>
+							
+						<viewObject frameborder="0" id="viewProjectPlan4" index="4" scrolling="auto" show="true">
+							<reference funcId="func_NhanVienKH" type="LIST" control="VIEW">																							
+								<referenceKeys> 
+									<referenceKey currentkey="KhachHang_ID" 	targetkey="KhachHang_ID"/>
+								</referenceKeys>
+							</reference>																																																																																																																																																																																																																																																									
+						</viewObject>
+					</viewObjects>
+				</form>
+				
+				<form type="LIST" 	title="Danh sách khách hàng" 	scriptid="checkNaN" styleid="fontSet_list" >
+					<conditionSet limit="40">
+					</conditionSet> 
+					
+					<formObjects>
+						<formObject  contentLength="5" edit="all" id="KhachHang_ID"   			width="10%"	name="KhachHang_ID" 			inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="40" edit="all" id="KhachHang_Name"   		width="30%"					name="KhachHang_Name" 	inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="15" edit="all" id="KhachHang_Phone"   	width="10%"	name="KhachHang_Phone" 	inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="15" edit="all" id="KhachHang_Address"   		width="40%"	name="KhachHang_Address" 		inputType="text" 	readonly="false" show="true"/>
+						
+						<formObject id="insertbutton" inputType="button" value="TẠO MỚI" edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_CREATE" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>
+					
+					<formStyle>
+						<layout id="layout1" type="header">
+							<setObject id="insertbutton" objectid="insertbutton"  index="1"/>
+						</layout>
+						
+						<layout id="search" type="search" >
+						</layout>
+					</formStyle>
+					
+					<columns>					
+						<column linkTarget="self">KhachHang_ID</column>
+						<column linkTarget="self">KhachHang_Name</column>
+						<column>KhachHang_Phone</column>
+						<column>KhachHang_Address</column>
+					</columns>
+				</form>
+				 
+			</formSet>
+		</function>
+		
+		<function daoid="NhanVienKH_dao"		id="func_NhanVienKH"		name="Nhân viên khách hàng"  	defaultAuthority="fff" img="19" saveLastupdateData="false" saveVersionData="false">
+			<dataSet>
+				
+				<dataObject autoinc="false" colname="creator" dataType="string" haveindex="true" id="creator" index="1" key="false" label="Creator" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="createdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="createdate" index="2" key="false" label="Create Date" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="updater" dataType="string" haveindex="true" id="updater" index="3" key="false" label="Updater" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="lastupdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="lastupdate" index="4" key="false" label="Last update" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="owner" dataType="string" haveindex="true" id="owner" index="5" key="false" label="Owner" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="ownergroup" dataType="string" haveindex="true" id="ownergroup" index="6" key="false" label="Đơn Vị Tiếp Nhận" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="domainid" dataType="string" haveindex="true" id="domainid" index="7" key="false" label="Domain ID" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="dataversion" dataFormat="0" dataType="integer" defaultvalue="1" haveindex="false" id="dataversion" index="8" key="false" label="Data version" length="50" notnull="false"/>
+				
+				
+				<dataObject autoformat="EMPL_0000" 	autoinc="true" id="NhanVienKH_ID"	colname="NhanVienKH_ID" 	 	dataType="string" key="true"  label="Mã nhân viên"		    length="10" notnull="false"  />	
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Name" 	colname="NhanVienKH_Name" 		dataType="string" key="false" label="Họ và Tên"	length="100" notnull="true" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_ChucVu" 	colname="NhanVienKH_ChucVu" 	dataType="string" key="false" label="Chức vụ"		length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Phone" 	colname="NhanVienKH_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Email" 	colname="NhanVienKH_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_TrustproAccount" 	defaultvalue=""	colname="NhanVienKH_TrustproAccount" 		dataType="user" key="false" label="Account Phần Mềm"			length="20" notnull="true" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="KhachHang_ID" 	colname="KhachHang_ID" 	dataType="string" key="false" label="Mã khách hàng"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="KhachHang_Name" 	colname="KhachHang_Name" 	dataType="string" key="false" label="Tên khách hàng"	length="200" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Name" 	colname="PhuTrach_Name" 		dataType="string" key="false" label="Phụ trách trực tiếp"	length="100" notnull="true" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Phone" 	colname="PhuTrach_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Email" 	colname="PhuTrach_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Name" 	colname="QlyDuAn_Name" 		dataType="string" key="false" label="Quản lý dự án"	length="100" notnull="true" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Phone" 	colname="QlyDuAn_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Email" 	colname="QlyDuAn_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Name" 	colname="LanhDaoPhong_Name" 		dataType="string" key="false" label="Lãnh đạo phòng"	length="100" notnull="true" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Phone" 	colname="LanhDaoPhong_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Email" 	colname="LanhDaoPhong_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+			
+			</dataSet>
+			
+			<formSet>
+				<form type="RECORD" title="Thông tin chi tiết" 		scriptid="checkNaN" styleid="fontSet_record" layoutid="RECORD_VMA">
+					<formObjects>  
+						<formObject  contentLength="10" edit="all" id="NhanVienKH_ID"   				name="NhanVienKH_ID" 					inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="40" edit="all" id="NhanVienKH_Name"   		name="NhanVienKH_Name" 			inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="10" edit="all" id="KhachHang_ID"   		name="KhachHang_ID" 			inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="KhachHang_Name"   	name="KhachHang_Name" 	inputType="hidden" 	readonly="true" 	show="true">
+							<searchCondition>
+								<setField>
+									<field currentField="KhachHang_Name" targetField="KhachHang_Name" />
+									<field currentField="KhachHang_ID" targetField="KhachHang_ID" />
+								</setField>
+							</searchCondition>
+						</formObject>
+						
+						
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_ChucVu"   						name="NhanVienKH_ChucVu" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Phone"   						name="NhanVienKH_Phone" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Email"   						name="NhanVienKH_Email" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_TrustproAccount"   			name="NhanVienKH_TrustproAccount" 		inputType="user" 	readonly="false" show="true" value=" "	/>
+						
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Name"   		name="PhuTrach_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Phone"   		name="PhuTrach_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Email"   		name="PhuTrach_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Name"   		name="QlyDuAn_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Phone"   		name="QlyDuAn_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Email"   		name="QlyDuAn_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Name"   		name="LanhDaoPhong_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Phone"   		name="LanhDaoPhong_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Email"   		name="LanhDaoPhong_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						
+						
+						<formObject id="insertbutton" inputType="button" value="HOÀN THÀNH" edit="create" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_INSERT(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="updatesavebutton" inputType="button" value="CẬP NHẬT" edit="editview" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_UPDATE(RECORD,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="deletebutton" inputType="hidden" value="XÓA" edit="view" authorityFlg="8">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="deleteRow();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="editbutton" inputType="hidden" value="SỬA" edit="view" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_EDIT" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="resetbutton" inputType="hidden" value="NHẬP LẠI    "  edit="edit" />
+					</formObjects>	
+					
+					<formStyle>
+						<layout col="2" editCol="2" id="layout_nghiphep_detail" index="1" label="Thông tin nhân viên khách hàng" open="true" type="group" >
+							<setObject colspan="1" id="NhanVienKH_ID" 							index="99"		objectid="NhanVienKH_ID"/>
+							<setObject colspan="1" id="NhanVienKH_Name" 						index="1" 	 		objectid="NhanVienKH_Name"/>
+							<setObject colspan="1" id="KhachHang_ID" 					index="99" 	 	objectid="KhachHang_ID"/>
+							<setObject colspan="1" id="KhachHang_Name" 				index="2" 	 		objectid="KhachHang_Name"/>
+							<setObject colspan="1" id="NhanVienKH_ChucVu" 					index="3" 	 		objectid="NhanVienKH_ChucVu"/>
+							<setObject colspan="1" id="NhanVienKH_Phone" 						index="4" 	 		objectid="NhanVienKH_Phone"/>
+							<setObject colspan="1" id="NhanVienKH_Email" 						index="5" 	 		objectid="NhanVienKH_Email"/>
+							<setObject colspan="1" id="NhanVienKH_TrustproAccount" 		index="6" 	 		objectid="NhanVienKH_TrustproAccount"/>
+							
+							
+							<setObject colspan="1" id="PhuTrach_Name" 							index="1"		objectid="PhuTrach_Name"/>
+							<setObject colspan="1" id="PhuTrach_Phone" 						index="2" 	 		objectid="PhuTrach_Phone"/>
+							<setObject colspan="1" id="PhuTrach_Email" 					index="3" 	 	objectid="PhuTrach_Email"/>
+							
+							<setObject colspan="1" id="QlyDuAn_Name" 							index="4"		objectid="QlyDuAn_Name"/>
+							<setObject colspan="1" id="QlyDuAn_Phone" 						index="5" 	 		objectid="QlyDuAn_Phone"/>
+							<setObject colspan="1" id="QlyDuAn_Email" 					index="6" 	 	objectid="QlyDuAn_Email"/>
+							
+							<setObject colspan="1" id="LanhDaoPhong_Name" 							index="7"		objectid="LanhDaoPhong_Name"/>
+							<setObject colspan="1" id="LanhDaoPhong_Phone" 						index="8" 	 		objectid="LanhDaoPhong_Phone"/>
+							<setObject colspan="1" id="LanhDaoPhong_Email" 					index="9" 	 	objectid="LanhDaoPhong_Email"/>
+						
+						</layout>
+							  
+						<layout id="layouttransHeader" type="transHeader">      
+							<setObject id="beforebacklink" objectid="beforebacklink"  index="1"/>						
+						</layout>
+						
+						<layout id="layout0"           type="header">      
+							<setObject id="deletebutton" objectid="deletebutton"  index="4"/> 
+							<setObject id="editbutton" objectid="editbutton"  index="5"/> 
+							
+						</layout>
+							
+						<layout id="layout1"           type="footer">      
+							<setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/>
+							<setObject id="insertbutton" objectid="insertbutton"  index="2"/>    
+						</layout>
+					</formStyle>
+				</form>
+				
+				<form type="LIST" 	title="Danh sách nhân viên khách hàng" 	scriptid="checkNaN" styleid="fontSet_list" >
+					<conditionSet limit="40">
+					</conditionSet> 
+					
+					<formObjects>
+						<formObject  contentLength="5" edit="all" id="NhanVienKH_ID"   width="10%"		name="NhanVienKH_ID" 						inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="NhanVienKH_Name"   				name="NhanVienKH_Name" 				inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="KhachHang_ID"   			name="KhachHang_ID"			inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="KhachHang_Name"   				name="KhachHang_Name" 				inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_ChucVu"   				name="NhanVienKH_ChucVu" 				inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Phone"   				name="NhanVienKH_Phone" 				inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Email"   				name="NhanVienKH_Email" 				inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_TrustproAccount"	name="NhanVienKH_TrustproAccount"	inputType="hidden" 	readonly="false" show="true"/>
+						
+						
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Name"   		name="PhuTrach_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Phone"   		name="PhuTrach_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Email"   		name="PhuTrach_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Name"   		name="QlyDuAn_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Phone"   		name="QlyDuAn_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Email"   		name="QlyDuAn_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Name"   		name="LanhDaoPhong_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Phone"   		name="LanhDaoPhong_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Email"   		name="LanhDaoPhong_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+
+						<formObject id="insertbutton" inputType="button" value="TẠO MỚI" edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_CREATE" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="searchbutton" inputType="submit" value="TÌM KIẾM" edit="all" authorityFlg="1">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="SEARCH" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>
+					
+					<formStyle>
+						<layout id="layout1" type="header">
+							<setObject id="insertbutton" objectid="insertbutton"  index="1"/>
+							<setObject id="insertbutton1" objectid="insertbutton1"  index="2"/>		
+						</layout>
+						
+						<layout id="search" type="search" >
+							<layout id="searchbody" type="group" horizontal="right" open="none">
+								<setObject id="NhanVienKH_Name" 		objectid="NhanVienKH_Name" index="2" />
+								<setObject id="KhachHang_Name" 	objectid="KhachHang_Name" index="3" />
+							</layout>
+							<layout id="right" type="right" width="100">							
+								<setObject id="searchbutton" objectid="searchbutton"  index="2"/>	
+							</layout>
+						</layout>
+					</formStyle>
+					
+					<header>
+						<headerField>NhanVienKH_Name</headerField>
+						<headerField>KhachHang_Name</headerField>
+					</header>
+					<columns>					
+						<column linkTarget="self">NhanVienKH_ID</column>
+						<column linkTarget="self">NhanVienKH_Name</column>
+						<column>KhachHang_Name</column>
+						<column>NhanVienKH_ChucVu</column>
+						<column>NhanVienKH_Phone</column>
+						<column>NhanVienKH_Email</column>
+						<column>NhanVienKH_TrustproAccount</column>
+						
+						
+						<column>PhuTrach_Name</column>
+						<column>PhuTrach_Phone</column>
+						<column>PhuTrach_Email</column>
+						
+						<column>QlyDuAn_Name</column>
+						<column>QlyDuAn_Phone</column>
+						<column>QlyDuAn_Email</column>
+						
+						<column>LanhDaoPhong_Name</column>
+						<column>LanhDaoPhong_Phone</column>
+						<column>LanhDaoPhong_Email</column>
+						
+						
+					</columns>
+				</form>
+				 
+			</formSet>
+			
+		</function>
+				
+		<function color="1" daoid="YeuCau_dao" 	id="func_YeuCau" 	img="02" name="Yêu cầu của khách hàng"			defaultAuthority="fff"  saveLastupdateData="false" saveVersionData="false">
+			<dataSet>
+				<dataObject autoinc="false" colname="creator" dataType="string" haveindex="true" id="creator" index="1" key="false" label="creator" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="createdate" dataFormat="yyyy/MM/dd HH:mm" dataType="date" haveindex="true" id="createdate" index="2" key="false" label="作成日" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="updater" dataType="string" haveindex="true" id="updater" index="3" key="false" label="更新者" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="lastupdate" dataFormat="yyyy/MM/dd HH:mm" dataType="date" haveindex="true" id="lastupdate" index="4" key="false" label="更新日" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="owner" dataType="string" haveindex="true" id="owner" index="5" key="false" label="所有者" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="ownergroup" dataType="string" haveindex="true" id="ownergroup" index="6" key="false" label="Groups" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="domainid" dataType="string" haveindex="true" id="domainid" index="7" key="false" label="ドメインID" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="dataversion" dataFormat="0" dataType="integer" defaultvalue="1" haveindex="false" id="dataversion" index="8" key="false" label="レコード版数" length="50" notnull="false"/>
+				
+				<dataObject autoinc="true"	autoformat="REQ_000000"	id="YeuCau_ID" 			colname="YeuCau_ID" 		key="true"	label="Mã yêu cầu"	dataType="string" length="10" notnull="false" />
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_Date" dataType="date"  dataFormat="dd/MM/yyyy" haveindex="false" id="YeuCau_Date" key="false" label="Ngày gửi yêu cầu" length="100" notnull="false"/>
+				
+				<dataObject autoformat="" 	autoinc="false" id="NhanVienKH_ID"	colname="NhanVienKH_ID" 	 	dataType="string" key="false"  label="Mã nhân viên"		    length="10" notnull="false"  />	
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Name" 	colname="NhanVienKH_Name" 		dataType="string" key="false" label="Người gửi yêu cầu"	length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_TrustproAccount" 	defaultvalue=""	colname="NhanVienKH_TrustproAccount" 		dataType="string" key="false" label="Account Phần Mềm"			length="50" notnull="false" haveindex="false" />				
+				<dataObject autoformat="" autoinc="false" id="KhachHang_ID" 	colname="KhachHang_ID" 	dataType="string" key="false" label="Mã khách hàng"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="KhachHang_Name" 	colname="KhachHang_Name" 	dataType="string" key="false" label="Tên khách hàng"	length="200" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Phone" 	colname="NhanVienKH_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Email" 	colname="NhanVienKH_Email" 	dataType="string" key="false" label="Email người gửi yêu cầu"			length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="Request_Content" 	colname="Request_Content" 		dataType="string" key="false" label="Mô tả yêu cầu"	length="2000" notnull="true" haveindex="false" />			
+				
+				
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_NgayPhanCong" dataType="date"  dataFormat="dd/MM/yyyy" haveindex="false" id="YeuCau_NgayPhanCong" key="false" label="Ngày xử lý" length="100" notnull="false"/>
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_NguoiPhanCongXuLy" dataType="string"  haveindex="false" id="YeuCau_NguoiPhanCongXuLy" key="false" label="Người phân công xử lý" length="100" notnull="false"/>
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_Email_NguoiPhanCongXuLy" dataType="string"  haveindex="false" id="YeuCau_Email_NguoiPhanCongXuLy" key="false" label="Email người phân công xử lý" length="100" notnull="false"/>
+				
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_NguoiThucHien"  dataType="string"  haveindex="false" id="YeuCau_NguoiThucHien" key="false" label="Người xử lý" length="100" notnull="false"/>				
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_Email_NguoiThucHien"  dataType="string"  haveindex="false" id="YeuCau_Email_NguoiThucHien" key="false" label="Email người thực hiện" length="100" notnull="false"/>				
+				
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_PhanLoai"  	dataType="string"  haveindex="false" id="YeuCau_PhanLoai"  key="false" label="Phân loại" defaultvalue="Hỗ trợ kỹ thuật" length="100" notnull="false"/>				
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_ChiTietCongViec" dataType="string"  haveindex="false" id="YeuCau_ChiTietCongViec" key="false" label="Phương án xử lý" length="2000" notnull="false"/>
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_TrangThai"  	dataType="string"  haveindex="false" id="YeuCau_TrangThai"  defaultvalue="Mở yêu cầu" key="false" label="Kết quả xử lý" length="100" notnull="false"/>				
+				
+				<dataObject autoformat="" autoinc="false" 		id="Taptin1"  				colname="Taptin1"  				dataType="file"		haveindex="false" key="false" 	label="Tệp tin 01" length="100" filecolname="Taptin1_flile" />
+				<dataObject autoformat="" autoinc="false" 		id="Taptin2"  				colname="Taptin2"  				dataType="file"		haveindex="false" key="false" 	label="Tệp tin 02" length="100" filecolname="Taptin2_flile" />
+				<dataObject autoformat="" autoinc="false" 		id="Taptin3"  				colname="Taptin3"  				dataType="file"		haveindex="false" key="false" 	label="Tệp tin 03" length="100" filecolname="Taptin3_flile" />
+				<dataObject autoformat="" autoinc="false" 		id="Taptin4"  				colname="Taptin4"  				dataType="file"		haveindex="false" key="false" 	label="Tệp tin 04" length="100" filecolname="Taptin4_flile" />
+				
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Name" 	colname="PhuTrach_Name" 		dataType="string" key="false" label="Phụ trách trực tiếp"	length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Phone" 	colname="PhuTrach_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Email" 	colname="PhuTrach_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Name" 	colname="QlyDuAn_Name" 		dataType="string" key="false" label="Quản lý dự án"	length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Phone" 	colname="QlyDuAn_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Email" 	colname="QlyDuAn_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Name" 	colname="LanhDaoPhong_Name" 		dataType="string" key="false" label="Lãnh đạo phòng"	length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Phone" 	colname="LanhDaoPhong_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Email" 	colname="LanhDaoPhong_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<!-- <dataObject autoformat="" autoinc="false" id="NguoiPhuTrachKH_Name" 	colname="NguoiPhuTrachKH_Name" 	dataType="string" key="false" label="Người phụ trách"	length="100" notnull="false" haveindex="false" /> -->
+				<!-- <dataObject autoformat="" autoinc="false" id="NguoiPhuTrachKH_Email" 	colname="NguoiPhuTrachKH_Email" 	dataType="string" key="false" label="Email người phụ trách"			length="100" notnull="false" haveindex="false" /> -->
+				
+				<!-- <dataObject autoformat="" autoinc="false" id="NguoiPhoiHopKH_Name" 	colname="NguoiPhoiHopKH_Name" 	dataType="string" key="false" label="Người phối hợp"	length="100" notnull="false" haveindex="false" /> -->
+				<!-- <dataObject autoformat="" autoinc="false" id="NguoiPhoiHopKH_Email" 	colname="NguoiPhoiHopKH_Email" 	dataType="string" key="false" label="Email người phối hợp"	length="100" notnull="false" haveindex="false" /> -->
+				
+				
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_flagInsert" dataType="string"  haveindex="false" id="YeuCau_flagInsert" key="false" label="Flag" length="2" notnull="false"/>
+				
+				<dataObject autoformat="" autoinc="false" colname="YeuCau_MucDo" dataType="string"  haveindex="false" id="YeuCau_MucDo" key="false" label="Cấp độ" length="50" notnull="false"/>
+				
+			</dataSet>
+			<formSet>
+				<form  col="1" copyType="REFCOPY" title="Yêu cầu xử lý" type="RECORD" layoutid="RECORD" styleid="fontSet_record" scriptid="HoTroKhachHang">
+					<events>
+						<event type="load">
+							<eventActions>
+								<eventAction expr="loadInfo();" />
+							</eventActions>
+						</event>
+					</events>
+					<formObjects>	
+						<!--FormObject Ghi Nhận Sự Cố-->
+						
+						<formObject colspan="1" contentLength="50" edit="view" id="YeuCau_TrangThai_view" index="9" inputType="text" label="" linefeed="false" linkType="link" value="Mở yêu cầu" name="YeuCau_TrangThai"  readonly="true" show="true"/>
+						
+						<!-- <formObject colspan="1" contentLength="50" edit="all" id="NguoiPhuTrachKH_Name" index="9" inputType="search"  linefeed="false" linkType="link" name="NguoiPhuTrachKH_Name"  readonly="true" show="true"> -->
+							<!-- <searchCondition funcId="func_NhanVienKH_view">                                 -->
+                                <!-- <setField> -->
+                                    <!-- <field currentField="NguoiPhuTrachKH_Name" 	targetField="NhanVienKH_Name"/> -->
+									<!-- <field currentField="NguoiPhuTrachKH_Email" 	targetField="NhanVienKH_Email"/>	 -->
+								<!-- </setField> -->
+                            <!-- </searchCondition> -->
+						<!-- </formObject>	 -->
+						<!-- <formObject colspan="1" contentLength="50" edit="all" id="NguoiPhuTrachKH_Email" index="9" inputType="text"  linefeed="false" linkType="link" name="NguoiPhuTrachKH_Email"  readonly="true" show="true"/> -->
+						
+						<!-- <formObject colspan="1" contentLength="50" edit="all" id="NguoiPhoiHopKH_Name" index="9" inputType="search"  linefeed="false" linkType="link" name="NguoiPhoiHopKH_Name"  readonly="true" show="true"> -->
+						<!-- <searchCondition funcId="func_NhanVienKH_view">                                 -->
+                            <!-- <setField> -->
+								<!-- <field currentField="NguoiPhoiHopKH_Name" 	targetField="NhanVienKH_Name"/> -->
+								<!-- <field currentField="NguoiPhoiHopKH_Email" 	targetField="NhanVienKH_Email"/>	 -->
+								<!-- </setField> -->
+                            <!-- </searchCondition> -->
+						<!-- </formObject>	 -->
+						<!-- <formObject colspan="1" contentLength="50" edit="all" id="NguoiPhoiHopKH_Email" index="9" inputType="text"  linefeed="false" linkType="link" name="NguoiPhoiHopKH_Email"  readonly="true" show="true"/>					 -->
+						
+						
+						<formObject colspan="1" contentLength="50" edit="create" id="YeuCau_MucDo" index="9" inputType="radio"  linefeed="false" value="Thường,Trung Bình,Khẩn" linkType="link" name="YeuCau_MucDo"  readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="myUserID" index="9" inputType="hidden"  linefeed="false" value="{userid}" linkType="link" name="myUserID"  readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_flagInsert" index="9" inputType="hidden"  linefeed="false" linkType="link" name="YeuCau_flagInsert"  readonly="false" show="true"/>
+						
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_ID" index="9" inputType="hidden"  linefeed="false" linkType="link" name="YeuCau_ID"  readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_Date" index="9" inputType="text"  linefeed="false" linkType="link" name="YeuCau_Date"  value="{@today}" readonly="true" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_ID" index="9" inputType="hidden"  linefeed="false" linkType="link" name="NhanVienKH_ID" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_Name" index="9" inputType="text"  linefeed="false" linkType="link" name="NhanVienKH_Name" readonly="true" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_TrustproAccount" index="9" inputType="hidden"  linefeed="false" linkType="link" name="NhanVienKH_TrustproAccount" readonly="true" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="KhachHang_ID" index="9" inputType="hidden"  linefeed="false" linkType="link" name="KhachHang_ID" readonly="true" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="KhachHang_Name" index="9" inputType="text"  linefeed="false" linkType="link" name="KhachHang_Name" readonly="true" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_Phone" index="9" inputType="text"  linefeed="false" linkType="link" name="NhanVienKH_Phone" readonly="true" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_Email" index="9" inputType="text"  linefeed="false" linkType="link" name="NhanVienKH_Email" readonly="true" show="true"/>
+						<formObject colspan="1" contentLength="160*3" edit="all" id="Request_Content"  index="9" inputType="text"  linefeed="false" linkType="link" name="Request_Content" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_NgayPhanCong" index="9" inputType="text"  linefeed="false" linkType="link" name="YeuCau_NgayPhanCong" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_NguoiPhanCongXuLy" index="9" inputType="search" linefeed="false" linkType="link" name="YeuCau_NguoiPhanCongXuLy" readonly="true" show="true">
+							<!-- <searchCondition funcId="function1307161140028761">                                 -->
+                                <!-- <setField> -->
+                                    <!-- <field currentField="YeuCau_Email_NguoiPhanCongXuLy" 	targetField="staff_Email"/> -->
+									<!-- <field currentField="YeuCau_NguoiPhanCongXuLy" 	targetField="staff_Name"/>	 -->
+								<!-- </setField> -->
+                            <!-- </searchCondition> -->
+						</formObject>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_Email_NguoiPhanCongXuLy" index="9" inputType="hidden" linefeed="false" linkType="link" name="YeuCau_Email_NguoiPhanCongXuLy" readonly="false" show="true"/>
+						
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_Email_NguoiThucHien" index="9" inputType="hidden" linefeed="false" linkType="link" name="YeuCau_Email_NguoiThucHien" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_NguoiThucHien" index="9" inputType="search"  linefeed="false" linkType="link" name="YeuCau_NguoiThucHien" readonly="true" show="true">
+							<searchCondition funcId="funcNhanVienHoTro">                                
+                                <setField>
+                                    <field currentField="YeuCau_Email_NguoiThucHien" 	targetField="NhanVienHoTro_Email"/>
+									<field currentField="YeuCau_NguoiThucHien" 	targetField="NhanVienHoTro_Name"/>	
+								</setField>
+                            </searchCondition>
+						</formObject>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_PhanLoai" index="9" inputType="choice"  linefeed="false" linkType="link" name="YeuCau_PhanLoai" readonly="false" show="true" value="Hỗ trợ chỉnh sửa TT Bệnh nhân,Chỉnh sửa hồ sơ gửi BHYT,Chỉnh sửa danh mục,Chỉnh sửa hệ thống"/>
+						<formObject colspan="1" contentLength="160*3" edit="all" id="YeuCau_ChiTietCongViec" index="9" inputType="text" label="Phương án xử lý" linefeed="false" linkType="link" name="YeuCau_ChiTietCongViec" readonly="false" show="true">
+							<!-- <events> -->
+								<!-- <event type="change"> -->
+									<!-- <eventActions> -->
+										<!-- <eventAction expr="loadInfo_PhanCong()" />																						 -->
+									<!-- </eventActions> -->
+								<!-- </event>																																																																																							 -->
+							<!-- </events>  -->
+						</formObject>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_TrangThai"  value="Mở yêu cầu,Xác nhận yêu cầu và đang xử lý,Đã hoàn thành,Hoàn thành và phát sinh yêu cầu mới" index="9" inputType="choice"  linefeed="false" linkType="link" name="YeuCau_TrangThai" readonly="false" show="true">
+							<events>
+								<event type="change">
+									<eventActions>
+										<eventAction expr="checkTrangThai()" />																						
+									</eventActions>
+								</event>																																																																																							
+							</events> 
+						</formObject>
+						<formObject colspan="1" contentLength="50" edit="all" id="Taptin1" index="9" inputType="file"  linefeed="false" linkType="link" name="Taptin1" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="Taptin2" index="9" inputType="file"  linefeed="false" linkType="link" name="Taptin2" readonly="false" show="true"/>
+						<formObject  edit="all" id="Taptin3"   						name="Taptin3" 		linkType="thumbnail"   contentLength="200*100"			inputType="file" 	readonly="false" show="true"/>
+						<formObject   edit="all" id="Taptin4"   					name="Taptin4" 		linkType="thumbnail"   contentLength="200*100"		inputType="file" 	readonly="false" show="true"/>
+						
+						
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Name"   		name="PhuTrach_Name" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Phone"   		name="PhuTrach_Phone" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Email"   		name="PhuTrach_Email" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Name"   		name="QlyDuAn_Name" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Phone"   		name="QlyDuAn_Phone" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Email"   		name="QlyDuAn_Email" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Name"   		name="LanhDaoPhong_Name" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Phone"   		name="LanhDaoPhong_Phone" 		inputType="text" 		readonly="true" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Email"   		name="LanhDaoPhong_Email" 		inputType="text" 		readonly="true" show="true"/>
+						
+						
+						<formObject id="insertbutton1" inputType="hidden" value="TẢI VỀ      " edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="downloadExcel();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>	
+						<formObject id="insertbutton" inputType="submit" value="HOÀN THÀNH     " edit="create" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_INSERT(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="updatesavebutton" inputType="submit" value="CẬP NHẬT    " edit="editview" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_SAVE_UPDATE(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="deletebutton" inputType="submit" value="XÓA" edit="dataview" authorityFlg="8">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_DELETE(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="editbutton" inputType="button" value="CHỈNH SỬA" edit="view" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_EDIT" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_BEFORE" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="resetbutton" inputType="hidden" value="NHẬP LẠI    "  edit="edit" />
+						
+					</formObjects>
+					
+						<!-- <viewObjects> -->
+							<!-- <viewObject frameborder="0" id="viewObjec_BaoCao" index="1" scrolling="auto" show="true"> -->
+								<!-- <reference funcId="func_BaoCaoThuHien"> -->
+									<!-- <referenceKeys> -->
+										<!-- <referenceKey currentkey="YeuCau_ID" targetkey="YeuCau_ID"/> -->
+									<!-- </referenceKeys> -->
+								<!-- </reference> -->
+							<!-- </viewObject> -->
+							 <!-- <viewObject frameborder="0" id="viewObjecBaocao" index="1" scrolling="auto" show="true"> -->
+								<!-- <reference funcId="func_Bao_Cao_2"> -->
+									<!-- <referenceKeys> -->
+										<!-- <referenceKey currentkey="Su_Co_ID" targetkey="Su_Co_ID"/> -->
+									<!-- </referenceKeys> -->
+								<!-- </reference> -->
+							<!-- </viewObject> -->
+						<!-- </viewObjects> -->
+					<formStyle>
+						<layout col="2" editCol="2" id="layoutYeuCau_TrangThai" index="0" label="Trạng thái yêu cầu" open="true" type="group">
+							
+							<setObject colspan="2" id="YeuCau_TrangThai_view" 	index="1"  label="visible" objectid="YeuCau_TrangThai_view"/>
+							
+							
+							
+						</layout>
+						<layout col="2" editCol="2" id="layoutYeuCau" index="1" label="Thông tin yêu cầu" open="true" type="group">
+							
+							<setObject colspan="1" id="YeuCau_ID" 	index="1"  label="visible" objectid="YeuCau_ID"/>
+							<setObject colspan="1" id="YeuCau_Date" 	index="8"  label="visible" objectid="YeuCau_Date"/>
+							<setObject colspan="1" id="NhanVienKH_ID" 	index="3"  label="visible" objectid="NhanVienKH_ID"/>
+							<setObject colspan="1" id="NhanVienKH_Name" 	index="6"  label="visible" objectid="NhanVienKH_Name"/>
+							<setObject colspan="1" id="NhanVienKH_TrustproAccount" 	index="2"  label="visible" objectid="NhanVienKH_TrustproAccount"/>
+							
+							<setObject colspan="1" id="KhachHang_ID" 	index="4"  label="visible" objectid="KhachHang_ID"/>
+							<setObject colspan="1" id="KhachHang_Name" 	index="5"  label="visible" objectid="KhachHang_Name"/>
+							<setObject colspan="1" id="NhanVienKH_Phone" 	index="7"  label="visible" objectid="NhanVienKH_Phone"/>
+							<setObject colspan="2" id="NhanVienKH_Email" 	index="9"  label="visible" objectid="NhanVienKH_Email"/>
+							
+							<!-- <setObject colspan="1" id="NguoiPhuTrachKH_Name" 	index="10"  label="visible" objectid="NguoiPhuTrachKH_Name"/> -->
+							<!-- <setObject colspan="1" id="NguoiPhuTrachKH_Email" 	index="11"  label="visible" objectid="NguoiPhuTrachKH_Email"/> -->
+							<!-- <setObject colspan="1" id="NguoiPhoiHopKH_Name" 	index="12"  label="visible" objectid="NguoiPhoiHopKH_Name"/> -->
+							<!-- <setObject colspan="1" id="NguoiPhoiHopKH_Email" 	index="13"  label="visible" objectid="NguoiPhoiHopKH_Email"/> -->
+							
+							<setObject colspan="2" id="Request_Content"  index="10" label="visible" objectid="Request_Content"/>
+							
+							<setObject colspan="1" id="Taptin1"  index="11" label="visible"  objectid="Taptin1"/>
+							<setObject colspan="1" id="Taptin2" 	index="12" label="visible"  objectid="Taptin2"/>
+							<setObject colspan="1" id="Taptin3" 	index="13" label="visible"  objectid="Taptin3"/>
+							<setObject colspan="1" id="Taptin4" 	index="14" label="visible"  objectid="Taptin4"/>
+							
+							
+							<setObject colspan="1" id="YeuCau_MucDo" 	index="99" label="visible"  objectid="YeuCau_MucDo"/>
+							
+							<setObject colspan="1" id="myUserID" 	index="99" label="visible"  objectid="myUserID"/>
+							<setObject colspan="1" id="YeuCau_flagInsert" 	index="99" label="visible"  objectid="YeuCau_flagInsert"/>
+							
+							
+						</layout>
+						<layout col="3" editCol="3" id="layout_PhuTrach_detail" index="2" label="Phụ trách hỗ trợ" open="true" type="group" >
+							<setObject colspan="1" id="PhuTrach_Name" 							index="1"		objectid="PhuTrach_Name"/>
+							<setObject colspan="1" id="PhuTrach_Phone" 						index="2" 	 		objectid="PhuTrach_Phone"/>
+							<setObject colspan="1" id="PhuTrach_Email" 					index="3" 	 	objectid="PhuTrach_Email"/>
+							
+							<setObject colspan="1" id="QlyDuAn_Name" 							index="4"		objectid="QlyDuAn_Name"/>
+							<setObject colspan="1" id="QlyDuAn_Phone" 						index="5" 	 		objectid="QlyDuAn_Phone"/>
+							<setObject colspan="1" id="QlyDuAn_Email" 					index="6" 	 	objectid="QlyDuAn_Email"/>
+							
+							<setObject colspan="1" id="LanhDaoPhong_Name" 							index="7"		objectid="LanhDaoPhong_Name"/>
+							<setObject colspan="1" id="LanhDaoPhong_Phone" 						index="8" 	 		objectid="LanhDaoPhong_Phone"/>
+							<setObject colspan="1" id="LanhDaoPhong_Email" 					index="9" 	 	objectid="LanhDaoPhong_Email"/>
+							
+							
+						</layout>
+						<layout col="2" editCol="2" id="layout_Phan_Cong" 	index="3" 	label="Ghi nhận/Phân công/Kết quả xử lý"	open="true" type="group">
+							<setObject colspan="1" id="YeuCau_NgayPhanCong" 	index="2" 	label="visible" 	objectid="YeuCau_NgayPhanCong"/> 
+							<setObject colspan="1" id="YeuCau_NguoiPhanCongXuLy" 	index="3" 	label="visible" 	objectid="YeuCau_NguoiPhanCongXuLy"/> 
+							<setObject colspan="1" id="YeuCau_NguoiThucHien" 	index="5" 	label="visible" 	objectid="YeuCau_NguoiThucHien"/> 
+							
+							<setObject colspan="1" id="YeuCau_Email_NguoiThucHien" 	index="9" 	label="visible" 	objectid="YeuCau_Email_NguoiThucHien"/> 
+							<setObject colspan="1" id="YeuCau_Email_NguoiPhanCongXuLy" 	index="9" 	label="visible" 	objectid="YeuCau_Email_NguoiPhanCongXuLy"/> 
+							
+							<setObject colspan="1" id="YeuCau_PhanLoai" 	index="4" 	label="visible" 	objectid="YeuCau_PhanLoai"/> 
+							<setObject colspan="2" id="YeuCau_ChiTietCongViec" 	index="1" 	label="visible" 	objectid="YeuCau_ChiTietCongViec"/> 
+							<setObject colspan="2" id="YeuCau_TrangThai" 	index="6" 	label="visible" 	objectid="YeuCau_TrangThai"/>
+							<!-- <setObject colspan="1" id="Taptin3" 	index="7" 	label="visible" 	objectid="Taptin3"/> -->
+							<!-- <setObject colspan="1" id="Taptin4" 	index="8" 	label="visible" 	objectid="Taptin4"/> -->
+						</layout>
+							
+							<layout id="layouttransHeader" type="transHeader">      
+							<setObject id="beforebacklink" objectid="beforebacklink"  index="1"/>						
+						</layout>
+							
+						<layout id="layout0"           type="header">      
+							<!-- <setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/> -->
+							<!-- <setObject id="insertbutton" objectid="insertbutton"  index="2"/>     -->
+							<!-- <setObject id="resetbutton" objectid="resetbutton"  index="3"/>  -->
+							<!-- <setObject id="deletebutton" objectid="deletebutton"  index="4"/>  -->
+							<!-- <setObject id="editbutton" objectid="editbutton"  index="5"/>  -->
+							<!-- <setObject id="insertbutton1" objectid="insertbutton1"  index="2"/>    -->
+						</layout>
+							
+						<layout id="layout1"           type="footer">      
+							<setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/>
+							<setObject id="insertbutton" objectid="insertbutton"  index="2"/>    
+							<setObject id="resetbutton" objectid="resetbutton"  index="3"/>  
+							<setObject id="deletebutton" objectid="deletebutton"  index="4"/> 	
+							<setObject id="editbutton" objectid="editbutton"  index="5"/> 							
+						</layout> 
+					</formStyle>
+					
+					
+				</form>
+				<form  col="1" copyType="REFCOPY" title="Danh sách yêu cầu hỗ trợ của BV" type="LIST" layoutid="LIST" styleid="fontSet_list">
+					<formObjects>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_MucDo" index="9" inputType="choice" value=",Thường,Trung Bình,Khẩn" linefeed="false" linkType="link" name="YeuCau_MucDo" width="7%" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_ID" index="9" inputType="text"  linefeed="false" linkType="link" name="YeuCau_ID" width="5%" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="20" edit="all" id="YeuCau_Date" index="9" inputType="text"  linefeed="false" linkType="link" name="YeuCau_Date" width="6%" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_ID" index="9" inputType="hidden"  linefeed="false" linkType="link" name="NhanVienKH_ID" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="20" edit="all" id="NhanVienKH_Name" index="9" inputType="text"  linefeed="false" linkType="link" name="NhanVienKH_Name" readonly="false" show="true" width="10%" />
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_TrustproAccount" index="9" inputType="hidden"  linefeed="false" linkType="link" name="NhanVienKH_TrustproAccount" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="KhachHang_ID" index="9" inputType="hidden"  linefeed="false" linkType="link" name="KhachHang_ID" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="KhachHang_Name" index="9" inputType="hidden"  linefeed="false" linkType="link" name="KhachHang_Name" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_Phone" index="9" inputType="hidden"  linefeed="false" linkType="link" name="NhanVienKH_Phone" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="NhanVienKH_Email" index="9" inputType="hidden"  linefeed="false" linkType="link" name="NhanVienKH_Email" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="Request_Content" index="9" inputType="text"  linefeed="false" linkType="link" name="Request_Content" readonly="false" show="true" width="40%"/>
+						<formObject colspan="1" contentLength="20" edit="all" id="YeuCau_NgayPhanCong" index="9" inputType="text" label="Ngày xử lý" linefeed="false" linkType="link" name="YeuCau_NgayPhanCong" readonly="false" show="true" width="6%"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_NguoiPhanCongXuLy" index="9" inputType="hidden"  linefeed="false" linkType="link" name="YeuCau_NguoiPhanCongXuLy" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_NguoiThucHien" index="9" inputType="text" width="9%" linefeed="false" linkType="link" name="YeuCau_NguoiThucHien" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_PhanLoai" index="9" inputType="text"  linefeed="false" linkType="link" name="YeuCau_PhanLoai" readonly="false" show="true" width="12%" />
+						<formObject colspan="1" contentLength="50" edit="all" id="YeuCau_ChiTietCongViec" width="21%" index="9" inputType="hidden"  linefeed="false" linkType="link" name="YeuCau_ChiTietCongViec" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="30" edit="all" id="YeuCau_TrangThai" index="9" inputType="choice" value=",Mở yêu cầu,Xác nhận yêu cầu và đang xử lý,Đã hoàn thành,Hoàn thành và phát sinh yêu cầu mới"  linefeed="false" linkType="link" name="YeuCau_TrangThai" readonly="false" show="true" width="14%"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="Taptin1" index="9" inputType="hidden"  linefeed="false" linkType="link" name="Taptin1" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="Taptin2" index="9" inputType="hidden"  linefeed="false" linkType="link" name="Taptin2" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="Taptin3" index="9" inputType="hidden"  linefeed="false" linkType="link" name="Taptin3" readonly="false" show="true"/>
+						<formObject colspan="1" contentLength="50" edit="all" id="Taptin4" index="9" inputType="hidden"  linefeed="false" linkType="link" name="Taptin4" readonly="false" show="true"/>
+						
+						
+						<formObject id="insertbutton1" inputType="button" value="TẢI DANH SÁCH" edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="downloadExcel();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="insertbutton" inputType="button" value="   TẠO MỚI   " edit="all" authorityFlg="2">
+								<events>
+									<event type="click">
+										<eventActions>
+											<eventAction defineEvent="FORM_CREATE" />
+										</eventActions>
+									</event>
+								</events>
+						</formObject>
+						<formObject id="searchbutton" inputType="submit" value="TÌM KIẾM" edit="all" authorityFlg="1">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="SEARCH" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>
+					
+					<formStyle>
+							<layout id="layout0" type="header">
+								<setObject id="insertbutton" objectid="insertbutton"  index="0"/>
+								<setObject id="insertbutton1" objectid="insertbutton1"  index="1"/>	
+							</layout>
+						
+							<layout id="search" type="search" >
+								<layout id="searchbody" type="group" horizontal="right" open="none">
+									<setObject id="YeuCau_Date" objectid="YeuCau_Date" index="0" />		
+									<setObject id="YeuCau_NgayPhanCong" objectid="YeuCau_NgayPhanCong" index="1" />		
+									<setObject id="NhanVienKH_Name" objectid="NhanVienKH_Name" index="2" />		
+									<setObject id="YeuCau_TrangThai" objectid="YeuCau_TrangThai" index="3" />	
+									<setObject id="YeuCau_MucDo" objectid="YeuCau_MucDo" index="4" />	
+									
+								</layout>
+								<layout id="right" type="right" width="100">							
+									<setObject id="searchbutton" objectid="searchbutton"  index="2"/>	
+								</layout>
+							</layout>
+					</formStyle>
+					
+					<conditionSet limit="50">
+						<sortCondition>
+							<condition index="0" property="YeuCau_ID" value="DESC"/>
+						</sortCondition>
+					</conditionSet>
+					
+					<header>
+						<headerField>YeuCau_Date</headerField>
+						<headerField>YeuCau_NgayPhanCong</headerField>
+						<headerField>NhanVienKH_Name</headerField>
+						<headerField>YeuCau_TrangThai</headerField>
+						<headerField>YeuCau_MucDo</headerField>
+						
+					</header>
+					<columns>
+						<column linkTarget="self">YeuCau_ID</column>
+						<column linkTarget="self">YeuCau_Date</column>
+						<column linkTarget="self">Request_Content</column>
+						<column linkTarget="self">YeuCau_ChiTietCongViec</column>
+						<column linkTarget="self">NhanVienKH_Name</column>
+						<column>YeuCau_NgayPhanCong</column>
+						<column>YeuCau_NguoiThucHien</column>
+						<column>YeuCau_PhanLoai</column>						
+						<column>YeuCau_TrangThai</column>
+						<column>YeuCau_MucDo</column>
+						
+						<column>NhanVienKH_ID</column>
+						<column>NhanVienKH_TrustproAccount</column>
+						<column>KhachHang_ID</column>
+						<column>KhachHang_Name</column>
+						<column>NhanVienKH_Phone</column>
+						<column>NhanVienKH_Email</column>
+						<column>YeuCau_NguoiPhanCongXuLy</column>
+						
+						
+						<column>YeuCau_ChiTietCongViec</column>
+						<column>YeuCau_TrangThai</column>
+						<column>Taptin1</column>
+						<column>Taptin2</column>
+						<column>Taptin3</column>
+						<column>Taptin4</column>
+						
+					</columns>
+					
+				</form>
+			</formSet>
+			
+		</function>
+		
+		<function daoid="BaoCaoThucHien_dao"		id="func_BaoCaoThuHien"		name="Báo cáo xử lý yêu cầu"  	defaultAuthority="fff" img="19" saveLastupdateData="false" saveVersionData="false">
+			<dataSet>
+				
+				<dataObject autoinc="false" colname="creator" dataType="string" haveindex="true" id="creator" index="1" key="false" label="Creator" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="createdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="createdate" index="2" key="false" label="Create Date" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="updater" dataType="string" haveindex="true" id="updater" index="3" key="false" label="Updater" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="lastupdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="lastupdate" index="4" key="false" label="Last update" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="owner" dataType="string" haveindex="true" id="owner" index="5" key="false" label="Owner" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="ownergroup" dataType="string" haveindex="true" id="ownergroup" index="6" key="false" label="Đơn Vị Tiếp Nhận" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="domainid" dataType="string" haveindex="true" id="domainid" index="7" key="false" label="Domain ID" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="dataversion" dataFormat="0" dataType="integer" defaultvalue="1" haveindex="false" id="dataversion" index="8" key="false" label="Data version" length="50" notnull="false"/>
+				
+				
+				<dataObject autoformat="REPT_00000" 	autoinc="true" id="BaoCaoThuHien_ID"	colname="BaoCaoThuHien_ID" 	 	dataType="string" key="true"  label="Mã báo cáo"		    length="10" notnull="false"  />	
+				<dataObject autoformat="" autoinc="false" id="BaoCaoThuHien_PPKhacPhuc" 	colname="BaoCaoThuHien_PPKhacPhuc" 		dataType="string" key="false" label="Phương pháp khắc phục"	length="1000" notnull="true" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="BaoCaoThuHien_KetQua" 	colname="BaoCaoThuHien_KetQua" 	dataType="string" key="false" label="Kết quả thực hiện"		length="1000" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" 		id="Taptin1"  				colname="Taptin1"  				dataType="file"		haveindex="false" key="false" 	label="Tệp tin 01" length="100" filecolname="Taptin1_flile" />
+				<dataObject autoformat="" autoinc="false" 		id="Taptin2"  				colname="Taptin2"  				dataType="file"		haveindex="false" key="false" 	label="Tệp tin 02" length="100" filecolname="Taptin2_flile" />
+				<dataObject autoformat="" autoinc="false" 		id="Taptin3"  				colname="Taptin3"  				dataType="file"		haveindex="false" key="false" 	label="Hình ảnh 03" length="100" filecolname="Taptin3_flile" />
+				<dataObject autoformat="" autoinc="false" 		id="Taptin4"  				colname="Taptin4"  				dataType="file"		haveindex="false" key="false" 	label="Hình ảnh 04" length="100" filecolname="Taptin4_flile" />
+				
+				<dataObject autoformat="" autoinc="false" id="YeuCau_ID" 	colname="YeuCau_ID" 	dataType="string" key="false" label="Yêu cầu ID"		length="10" notnull="false" haveindex="false" />
+				
+				
+			
+			</dataSet>
+			
+			<formSet>
+				<form type="RECORD" title="Thông tin chi tiết báo cáo xử lý yêu cầu" 		scriptid="checkNaN" styleid="fontSet_record" layoutid="RECORD_VMA">
+					<formObjects>  
+						<formObject  contentLength="50" edit="all" id="BaoCaoThuHien_ID"   				name="BaoCaoThuHien_ID" 					inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="160*3" edit="all" id="BaoCaoThuHien_PPKhacPhuc"   		name="BaoCaoThuHien_PPKhacPhuc" 			inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="50" edit="all" id="YeuCau_ID"   						name="YeuCau_ID" 					inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="160*3" edit="all" id="BaoCaoThuHien_KetQua"   		name="BaoCaoThuHien_KetQua" 			inputType="text" 	readonly="false" show="true"/>
+						
+						<formObject  contentLength="50" edit="all" id="Taptin1"   						name="Taptin1" 					inputType="file" 	readonly="false" show="true"/>
+						<formObject  contentLength="50" edit="all" id="Taptin2"   						name="Taptin2" 					inputType="file" 	readonly="false" show="true"/>
+						<formObject  edit="all" id="Taptin3"   						name="Taptin3" 		linkType="thumbnail"   contentLength="200*100"			inputType="file" 	readonly="false" show="true"/>
+						<formObject   edit="all" id="Taptin4"   					name="Taptin4" 		linkType="thumbnail"   contentLength="200*100"		inputType="file" 	readonly="false" show="true"/>
+						
+						
+						<formObject id="insertbutton" inputType="button" value="HOÀN THÀNH" edit="create" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_INSERT(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="updatesavebutton" inputType="button" value="CẬP NHẬT" edit="editview" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_UPDATE(RECORD,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="deletebutton" inputType="hidden" value="XÓA" edit="view" authorityFlg="8">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="deleteRow();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="editbutton" inputType="hidden" value="SỬA" edit="view" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_EDIT" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="resetbutton" inputType="hidden" value="NHẬP LẠI    "  edit="edit" />
+					</formObjects>	
+					
+					<formStyle>
+						<layout col="2" editCol="2" id="layout_baocao_detail" index="1" label="Chi tiết báo cáo xử lý yêu cầu" open="true" type="group" >
+							<setObject colspan="1" id="BaoCaoThuHien_ID" 							index="99"		objectid="BaoCaoThuHien_ID"/>
+							<setObject colspan="2" id="BaoCaoThuHien_PPKhacPhuc" 						index="1" 	 		objectid="BaoCaoThuHien_PPKhacPhuc"/>
+							<setObject colspan="1" id="YeuCau_ID" 					index="99" 	 	objectid="YeuCau_ID"/>
+							<setObject colspan="2" id="BaoCaoThuHien_KetQua" 				index="2" 	 		objectid="BaoCaoThuHien_KetQua"/>
+							<setObject colspan="1" id="Taptin1" 					index="3" 	 		objectid="Taptin1"/>
+							<setObject colspan="1" id="Taptin2" 						index="4" 	 		objectid="Taptin2"/>
+							<setObject colspan="1" id="Taptin3" 						index="5" 	 		objectid="Taptin3"/>
+							<setObject colspan="1" id="Taptin4" 						index="6" 	 		objectid="Taptin4"/>
+														
+						
+						</layout>
+							  
+						<layout id="layouttransHeader" type="transHeader">      
+							<setObject id="beforebacklink" objectid="beforebacklink"  index="1"/>						
+						</layout>
+						
+						<layout id="layout0"           type="header">      
+							<setObject id="deletebutton" objectid="deletebutton"  index="4"/> 
+							<setObject id="editbutton" objectid="editbutton"  index="5"/> 
+							
+						</layout>
+							
+						<layout id="layout1"           type="footer">      
+							<setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/>
+							<setObject id="insertbutton" objectid="insertbutton"  index="2"/>    
+						</layout>
+					</formStyle>
+				</form>
+				
+				<form type="LIST" 	title="Báo cáo xử lý yêu cầu" 	scriptid="checkNaN" styleid="fontSet_list" >
+					<conditionSet limit="40">
+					</conditionSet> 
+					
+					<formObjects>
+						<formObject  contentLength="5" edit="all" id="BaoCaoThuHien_ID"   width="7%"		name="BaoCaoThuHien_ID" 						inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="BaoCaoThuHien_PPKhacPhuc"   	width="28%"			name="BaoCaoThuHien_PPKhacPhuc" 				inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="YeuCau_ID"   			name="YeuCau_ID"			inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="BaoCaoThuHien_KetQua"   		width="28%"		name="BaoCaoThuHien_KetQua" 				inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="Taptin1"   				name="Taptin1" 		width="9%"		inputType="file" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="Taptin2"   				name="Taptin2" 		width="9%"		inputType="file" 	readonly="false" show="true"/>
+						<formObject  edit="all" id="Taptin3"   				name="Taptin3" 		width="11%"	linkType="thumbnail"  contentLength="200*100"	inputType="file" 	readonly="false" show="true"/>
+						<formObject  edit="all" id="Taptin4"	name="Taptin4"	inputType="file" width="11%" linkType="thumbnail"  contentLength="200*100"	readonly="false" show="true"/>
+						
+						
+						<formObject id="insertbutton" inputType="button" value="TẠO MỚI" edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_CREATE" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="searchbutton" inputType="submit" value="TÌM KIẾM" edit="all" authorityFlg="1">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="SEARCH" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>
+					
+					<formStyle>
+						<layout id="layout1" type="header">
+							<setObject id="insertbutton" objectid="insertbutton"  index="1"/>
+							<setObject id="insertbutton1" objectid="insertbutton1"  index="2"/>		
+						</layout>
+						
+						
+					</formStyle>
+					
+					<columns>					
+						<column linkTarget="self">BaoCaoThuHien_ID</column>
+						<column linkTarget="self">BaoCaoThuHien_PPKhacPhuc</column>
+						<column>YeuCau_ID</column>
+						<column>BaoCaoThuHien_KetQua</column>
+						
+						<column>Taptin1</column>
+						<column>Taptin2</column>
+						<column>Taptin3</column>					
+						<column>Taptin4</column>
+						
+						
+					</columns>
+				</form>
+				 
+			</formSet>
+			
+		</function>
+		
+		
+		<function daoid="NhanVienKH_dao"		id="func_NhanVienKH_view"		name="Nhân viên khách hàng"  	defaultAuthority="fff" img="19" saveLastupdateData="false" saveVersionData="false">
+			<dataSet type="view">
+				
+				<dataObject autoinc="false" colname="creator" dataType="string" haveindex="true" id="creator" index="1" key="false" label="Creator" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="createdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="createdate" index="2" key="false" label="Create Date" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="updater" dataType="string" haveindex="true" id="updater" index="3" key="false" label="Updater" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="lastupdate" dataFormat="dd/MM/yyyy HH:mm" dataType="date" haveindex="true" id="lastupdate" index="4" key="false" label="Last update" length="50" notnull="false"/>
+				<dataObject autoinc="false" colname="owner" dataType="string" haveindex="true" id="owner" index="5" key="false" label="Owner" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="ownergroup" dataType="string" haveindex="true" id="ownergroup" index="6" key="false" label="Đơn Vị Tiếp Nhận" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="domainid" dataType="string" haveindex="true" id="domainid" index="7" key="false" label="Domain ID" length="30" notnull="false"/>
+				<dataObject autoinc="false" colname="dataversion" dataFormat="0" dataType="integer" defaultvalue="1" haveindex="false" id="dataversion" index="8" key="false" label="Data version" length="50" notnull="false"/>
+				
+				
+				<dataObject autoformat="EMPL_0000" 	autoinc="true" id="NhanVienKH_ID"	colname="NhanVienKH_ID" 	 	dataType="string" key="true"  label="Mã nhân viên"		    length="10" notnull="false"  />	
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Name" 	colname="NhanVienKH_Name" 		dataType="string" key="false" label="Họ và Tên"	length="100" notnull="true" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_ChucVu" 	colname="NhanVienKH_ChucVu" 	dataType="string" key="false" label="Chức vụ"		length="100" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Phone" 	colname="NhanVienKH_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_Email" 	colname="NhanVienKH_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="NhanVienKH_TrustproAccount" 	defaultvalue=""	colname="NhanVienKH_TrustproAccount" 		dataType="user" key="false" label="Account Phần Mềm"			length="20" notnull="true" haveindex="false" />
+				
+				<dataObject autoformat="" autoinc="false" id="KhachHang_ID" 	colname="KhachHang_ID" 	dataType="string" key="false" label="Mã khách hàng"	length="20" notnull="false" haveindex="false" />
+				<dataObject autoformat="" autoinc="false" id="KhachHang_Name" 	colname="KhachHang_Name" 	dataType="string" key="false" label="Tên khách hàng"	length="200" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Name" 	colname="PhuTrach_Name" 		dataType="string" key="false" label="Phụ trách trực tiếp"	length="100" notnull="true" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Phone" 	colname="PhuTrach_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="PhuTrach_Email" 	colname="PhuTrach_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Name" 	colname="QlyDuAn_Name" 		dataType="string" key="false" label="Quản lý dự án"	length="100" notnull="true" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Phone" 	colname="QlyDuAn_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="QlyDuAn_Email" 	colname="QlyDuAn_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Name" 	colname="LanhDaoPhong_Name" 		dataType="string" key="false" label="Lãnh đạo phòng"	length="100" notnull="true" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Phone" 	colname="LanhDaoPhong_Phone" 	dataType="string" key="false" label="Số điện thoại"	length="20" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				<dataObject autoformat="" autoinc="false" id="LanhDaoPhong_Email" 	colname="LanhDaoPhong_Email" 	dataType="string" key="false" label="Email"			length="100" notnull="false" haveindex="false" >
+					<reference funcId="func_KhachHang">
+						<referenceKeys>
+							<referenceKey currentkey="KhachHang_ID" targetkey="KhachHang_ID"/>						
+						</referenceKeys>
+					</reference>
+				</dataObject>
+				
+			
+			</dataSet>
+			
+			<formSet>
+				<form type="RECORD" title="Thông tin chi tiết" 		scriptid="checkNaN" styleid="fontSet_record" layoutid="RECORD_VMA">
+					<formObjects>  
+						<formObject  contentLength="10" edit="all" id="NhanVienKH_ID"   				name="NhanVienKH_ID" 					inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="40" edit="all" id="NhanVienKH_Name"   		name="NhanVienKH_Name" 			inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="10" edit="all" id="KhachHang_ID"   		name="KhachHang_ID" 			inputType="hidden" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="KhachHang_Name"   	name="KhachHang_Name" 	inputType="hidden" 	readonly="true" 	show="true">
+							<searchCondition>
+								<setField>
+									<field currentField="KhachHang_Name" targetField="KhachHang_Name" />
+									<field currentField="KhachHang_ID" targetField="KhachHang_ID" />
+								</setField>
+							</searchCondition>
+						</formObject>
+						
+						
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_ChucVu"   						name="NhanVienKH_ChucVu" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Phone"   						name="NhanVienKH_Phone" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Email"   						name="NhanVienKH_Email" 					inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_TrustproAccount"   			name="NhanVienKH_TrustproAccount" 		inputType="user" 	readonly="false" show="true" value=" "	/>
+						
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Name"   		name="PhuTrach_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Phone"   		name="PhuTrach_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Email"   		name="PhuTrach_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Name"   		name="QlyDuAn_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Phone"   		name="QlyDuAn_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Email"   		name="QlyDuAn_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Name"   		name="LanhDaoPhong_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Phone"   		name="LanhDaoPhong_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Email"   		name="LanhDaoPhong_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						
+						
+						<formObject id="insertbutton" inputType="button" value="HOÀN THÀNH" edit="create" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_INSERT(LIST,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="updatesavebutton" inputType="button" value="CẬP NHẬT" edit="editview" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="RECORD_UPDATE(RECORD,VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="deletebutton" inputType="hidden" value="XÓA" edit="view" authorityFlg="8">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction expr="deleteRow();" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="editbutton" inputType="hidden" value="SỬA" edit="view" authorityFlg="4">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_EDIT" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="resetbutton" inputType="hidden" value="NHẬP LẠI    "  edit="edit" />
+					</formObjects>	
+					
+					<formStyle>
+						<layout col="2" editCol="2" id="layout_nghiphep_detail" index="1" label="Thông tin nhân viên khách hàng" open="true" type="group" >
+							<setObject colspan="1" id="NhanVienKH_ID" 							index="99"		objectid="NhanVienKH_ID"/>
+							<setObject colspan="1" id="NhanVienKH_Name" 						index="1" 	 		objectid="NhanVienKH_Name"/>
+							<setObject colspan="1" id="KhachHang_ID" 					index="99" 	 	objectid="KhachHang_ID"/>
+							<setObject colspan="1" id="KhachHang_Name" 				index="2" 	 		objectid="KhachHang_Name"/>
+							<setObject colspan="1" id="NhanVienKH_ChucVu" 					index="3" 	 		objectid="NhanVienKH_ChucVu"/>
+							<setObject colspan="1" id="NhanVienKH_Phone" 						index="4" 	 		objectid="NhanVienKH_Phone"/>
+							<setObject colspan="1" id="NhanVienKH_Email" 						index="5" 	 		objectid="NhanVienKH_Email"/>
+							<setObject colspan="1" id="NhanVienKH_TrustproAccount" 		index="6" 	 		objectid="NhanVienKH_TrustproAccount"/>
+							
+							
+							<setObject colspan="1" id="PhuTrach_Name" 							index="1"		objectid="PhuTrach_Name"/>
+							<setObject colspan="1" id="PhuTrach_Phone" 						index="2" 	 		objectid="PhuTrach_Phone"/>
+							<setObject colspan="1" id="PhuTrach_Email" 					index="3" 	 	objectid="PhuTrach_Email"/>
+							
+							<setObject colspan="1" id="QlyDuAn_Name" 							index="4"		objectid="QlyDuAn_Name"/>
+							<setObject colspan="1" id="QlyDuAn_Phone" 						index="5" 	 		objectid="QlyDuAn_Phone"/>
+							<setObject colspan="1" id="QlyDuAn_Email" 					index="6" 	 	objectid="QlyDuAn_Email"/>
+							
+							<setObject colspan="1" id="LanhDaoPhong_Name" 							index="7"		objectid="LanhDaoPhong_Name"/>
+							<setObject colspan="1" id="LanhDaoPhong_Phone" 						index="8" 	 		objectid="LanhDaoPhong_Phone"/>
+							<setObject colspan="1" id="LanhDaoPhong_Email" 					index="9" 	 	objectid="LanhDaoPhong_Email"/>
+						
+						</layout>
+							  
+						<layout id="layouttransHeader" type="transHeader">      
+							<setObject id="beforebacklink" objectid="beforebacklink"  index="1"/>						
+						</layout>
+						
+						<layout id="layout0"           type="header">      
+							<setObject id="deletebutton" objectid="deletebutton"  index="4"/> 
+							<setObject id="editbutton" objectid="editbutton"  index="5"/> 
+							
+						</layout>
+							
+						<layout id="layout1"           type="footer">      
+							<setObject id="updatesavebutton" objectid="updatesavebutton"  index="1"/>
+							<setObject id="insertbutton" objectid="insertbutton"  index="2"/>    
+						</layout>
+					</formStyle>
+				</form>
+				
+				<form type="LIST" 	title="Danh sách nhân viên khách hàng" 	scriptid="checkNaN" styleid="fontSet_list" >
+					<conditionSet limit="40">
+					</conditionSet> 
+					
+					<formObjects>
+						<formObject  contentLength="5" edit="all" id="NhanVienKH_ID"   width="10%"		name="NhanVienKH_ID" 						inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="30" edit="all" id="NhanVienKH_Name"   				name="NhanVienKH_Name" 				inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="KhachHang_ID"   			name="KhachHang_ID"			inputType="text" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="KhachHang_Name"   				name="KhachHang_Name" 				inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_ChucVu"   				name="NhanVienKH_ChucVu" 				inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Phone"   				name="NhanVienKH_Phone" 				inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_Email"   				name="NhanVienKH_Email" 				inputType="text" 	readonly="false" show="true"/>
+						<formObject  contentLength="20" edit="all" id="NhanVienKH_TrustproAccount"	name="NhanVienKH_TrustproAccount"	inputType="hidden" 	readonly="false" show="true"/>
+						
+						
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Name"   		name="PhuTrach_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Phone"   		name="PhuTrach_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="PhuTrach_Email"   		name="PhuTrach_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Name"   		name="QlyDuAn_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Phone"   		name="QlyDuAn_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="QlyDuAn_Email"   		name="QlyDuAn_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Name"   		name="LanhDaoPhong_Name" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Phone"   		name="LanhDaoPhong_Phone" 		inputType="hidden" 		readonly="false" show="true"/>
+						<formObject  contentLength="35" edit="all" id="LanhDaoPhong_Email"   		name="LanhDaoPhong_Email" 		inputType="hidden" 		readonly="false" show="true"/>
+
+						<formObject id="insertbutton" inputType="button" value="TẠO MỚI" edit="all" authorityFlg="2">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="FORM_CREATE" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="searchbutton" inputType="submit" value="TÌM KIẾM" edit="all" authorityFlg="1">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="SEARCH" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+						<formObject id="beforebacklink" inputType="link" value="QUAY LẠI" index="6">
+							<events>
+								<event type="click">
+									<eventActions>
+										<eventAction defineEvent="BACK_LIST(VIEW)" />
+									</eventActions>
+								</event>
+							</events>
+						</formObject>
+					</formObjects>
+					
+					<formStyle>
+						<layout id="layout1" type="header">
+							<setObject id="insertbutton" objectid="insertbutton"  index="1"/>
+							<setObject id="insertbutton1" objectid="insertbutton1"  index="2"/>		
+						</layout>
+						
+						<layout id="search" type="search" >
+							<layout id="searchbody" type="group" horizontal="right" open="none">
+								<setObject id="NhanVienKH_Name" 		objectid="NhanVienKH_Name" index="2" />
+								<setObject id="KhachHang_Name" 	objectid="KhachHang_Name" index="3" />
+							</layout>
+							<layout id="right" type="right" width="100">							
+								<setObject id="searchbutton" objectid="searchbutton"  index="2"/>	
+							</layout>
+						</layout>
+					</formStyle>
+					
+					<header>
+						<headerField>NhanVienKH_Name</headerField>
+						<headerField>KhachHang_Name</headerField>
+					</header>
+					<columns>					
+						<column linkTarget="self">NhanVienKH_ID</column>
+						<column linkTarget="self">NhanVienKH_Name</column>
+						<column>KhachHang_Name</column>
+						<column>NhanVienKH_ChucVu</column>
+						<column>NhanVienKH_Phone</column>
+						<column>NhanVienKH_Email</column>
+						<column>NhanVienKH_TrustproAccount</column>
+						
+						
+						<column>PhuTrach_Name</column>
+						<column>PhuTrach_Phone</column>
+						<column>PhuTrach_Email</column>
+						
+						<column>QlyDuAn_Name</column>
+						<column>QlyDuAn_Phone</column>
+						<column>QlyDuAn_Email</column>
+						
+						<column>LanhDaoPhong_Name</column>
+						<column>LanhDaoPhong_Phone</column>
+						<column>LanhDaoPhong_Email</column>
+						
+						
+					</columns>
+				</form>
+				 
+			</formSet>
+			
+		</function>
+		
+	</functionInfo>
+                 
+</pcpreferences>
